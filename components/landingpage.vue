@@ -23,14 +23,14 @@
         <section id="section-3">
                 <div class="wrapper">
                     <div id="social-media-nav">
-                        <a href="https://www.facebook.com/katie.rotondo" class="social-icons"><img src="/assets/icons/socialicons/facebook-circle.svg" alt="facebook-icon"></a>
+                        <a href="https://www.facebook.com/katie.rotondo" class="social-icons"><img src="/assets/icons/socialicons/Facebook-circle.svg" alt="facebook-icon"></a>
                         <a href="https://www.instagram.com/katierotondo/?hl=en" class="social-icons"><img src="/assets/icons/socialicons/instagram-circle.svg" alt="instagram-icon"></a>
                         <a href="https://www.youtube.com/channel/UClKmvQR9qj9jVEozVWKCCfg" class="social-icons"><img src="/assets/icons/socialicons/youtube-with-circle.svg" alt="youtube-icon"></a>
                         <h1>Social Media</h1>
 
                     </div>
                     <div class="images responsive">
-                        <img src="/assets/images/hero2.JPG">
+                        <img src="/assets/images/hero2.jpg">
                         <img src="/assets/images/katie.jpg">
                         <img src="/assets/images/katie4.jpg">
                         <img src="/assets/images/katie6.jpg">

@@ -14,7 +14,7 @@ var app = express();
 
 
 // Using the middleware
-app.use(serveStatic(__dirname + "./"));
+app.use(serveStatic(__dirname + "/"));
 app.use(session({secret: 'Proggressionoverperfection', resave: false, saveUninitialized: true })); 
 app.use(passport.initialize()); 
 app.use(passport.session());

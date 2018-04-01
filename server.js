@@ -173,13 +173,7 @@ app.delete('/session', function (req,res) {
   
 // DELETE____________________________________________________________
 
-
-
-// app.listen(5050, function() {
-//     console.log("Server is ready & listening on 5050...");
-// });
-
 // Commands to make server run in express
     app.listen(app.get('port'), function() {
-        console.log("Server is ready & listening on Heroku...");
+        console.log("Server is listening...");
     });

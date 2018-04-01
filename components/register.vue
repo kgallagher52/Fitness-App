@@ -151,7 +151,7 @@ var createUser = function(newUser, success, failure) {
               // success
               console.log("Success");
                 signingIn(tempUser,tempPw, function(user) {
-                  window.location.href = Global.path2 + '/signedIn';
+                  window.location.href = Global.path2 + '/home';
                 });
     
             

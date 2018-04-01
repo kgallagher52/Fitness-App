@@ -17,7 +17,7 @@ var collectUser = function(user, success, failure){
     }).then(function (response){
         var status = response.status;
         if(status != 200) {
-            window.location.href = Global.path2 + '/homeerror';
+            window.location.href = Global.path2 + '/';
         }
         return response.json();
     }).then(function (user) {

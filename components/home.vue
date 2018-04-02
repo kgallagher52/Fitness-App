@@ -1,6 +1,20 @@
 <template>
     <div>
-        {{ currentUser.name }}
+    <nav>
+        <h1>All-N-All-Fitness</h1>
+        <div>
+            <img src="/assets/icons/person.svg">
+            <h1>Welcome</h1>
+            <h1>{{ currentUser.name }}</h1>
+            <ul>
+                <img v-on:mousedown="drowdown" style="width:12px; padding-left:3px; cursor:pointer;" src="/assets/icons/dropdown-icon.svg">
+                <li class="settingsBtn" v-if="dropdownContainer">Settings</li>
+                <li class="signOutBtn" v-if="dropdownContainer">Sign Out</li>
+            </ul>
+        </div>
+        
+
+    </nav>
    
     </div>
 </template>
@@ -32,13 +46,13 @@ var collectUser = function(user, success, failure){
 };
 
 
+
 export default {
 // Shorthand for function es6 data() instead of data function()
   data() {
     return {
-        currentUser: {
-            
-        }
+        currentUser: {},
+        dropdownContainer: false,
       
     }
   },
@@ -46,6 +60,12 @@ export default {
   
 
     },
+    methods: {
+        drowdown() {
+            this.dropdownContainer = true;
+        }
+    },
+
     created: function () {
         var thisUser = this;
         collectUser(this.currentUser, function(user){
@@ -70,6 +90,62 @@ export default {
 
 <style scoped>
 
+nav {
+    color: #fff;
+    display: flex;
+    background-color: #1d4776;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+nav div {
+    display: flex;
+    width: 24%;
+
+}
+
+nav img {
+    width: 20px;
+    height: 66px;
+}
+
+nav h1 {
+        padding-left: 5%;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    
+}
+
+nav li {
+    top: 4%;
+    position: absolute;
+    padding: 20px;
+    z-index: 2; 
+    cursor: pointer;
+    
+    
+
+}
+
+nav li:hover {
+    color: #000;
+}
+
+.settingsBtn {
+    right: 7%;
+    
+}
+
+.signOutBtn {
+    right: 1%;
+  
+}
+
 img.responsive {
     width:100%;
     height:auto;
@@ -87,8 +163,7 @@ body {
 .wrapper {
     margin: 0 auto;
     padding: 34px;
-    display: flex;
-    flex-wrap: nowrap;
+
 }
 
 </style>

@@ -7,9 +7,12 @@ import Routes      from './routes.js';
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
+// For Local add mode: 'history' under routes
+
 // Routing
 const router = new VueRouter ({
     routes: Routes,
+    mode: 'history'
 });
 
 

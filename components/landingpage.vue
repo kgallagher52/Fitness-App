@@ -10,7 +10,7 @@
     </section>
         <section id="section-2">
             <div class="wrapper">
-                <img src="/assets/images/katiebeach.jpg">
+                <img style="width:248px;" src="/assets/images/katiebeach.jpg">
                 <div>
                     <h1>Mission Statement</h1>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Optio aspernatur hic tempora accusamus veritatis dicta maiores inventore repellendus quo architecto minus adipisci quos, eius sequi unde fuga facilis natus culpa.</p>

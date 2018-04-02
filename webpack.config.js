@@ -3,20 +3,20 @@ var webpack = require('webpack');
 
 module.exports = {
   // Production
-  entry: './main.js',
-  output: {
-    path: path.resolve(__dirname, './'),
-    publicPath: '/dist/',
-    filename: 'build.js'
-  },
-  
-// local 
   // entry: './main.js',
   // output: {
-  //   path: path.resolve(__dirname, './dist'),
+  //   path: path.resolve(__dirname, './'),
   //   publicPath: '/dist/',
   //   filename: 'build.js'
   // },
+  
+// local 
+  entry: './main.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
+  },
   module: {
     rules: [
       {

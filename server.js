@@ -15,9 +15,11 @@ var app = express();
 // Using the middleware
 
 // For Local env
-// app.use(express.static('public'));
+app.use(express.static('public'));
+
 // For Production
-app.use(serveStatic(__dirname + "/"));
+// app.use(serveStatic(__dirname + "/"));
+
 app.use(session({secret: 'Proggressionoverperfection', resave: false, saveUninitialized: true })); 
 app.use(passport.initialize()); 
 app.use(passport.session());
@@ -27,7 +29,7 @@ app.set('port', (process.env.PORT || 5050));
 
 app.use(function (req, res, next) {
     // For local
-    // res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.header("Access-Control-Allow-Origin", "http://localhost:8080");
     
     res.header("Access-Control-Allow-Credentials", "true");
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");

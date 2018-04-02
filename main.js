@@ -12,6 +12,7 @@ Vue.use(VueRouter);
 // Routing
 const router = new VueRouter ({
     routes: Routes,
+    mode: 'history'
 });
 
 

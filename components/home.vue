@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Global from '../global.js';
+import Global   from '../global.js';
 
 var collectUser = function(user, success, failure){
     return fetch(Global.path + '/session',{
@@ -69,7 +69,6 @@ export default {
     }
   },
     components: {
-  
 
     },
     methods: {

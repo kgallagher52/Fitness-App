@@ -1,7 +1,7 @@
 <template>
     <div>
     <nav>
-        <h1 style="font-size:1.8rem;">All-N-All-Fitness</h1>
+        <router-link style="text-decoration:none; color:inherit; width:100%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
         <div>
             <img src="/assets/icons/person.svg">
             <h1>Welcome</h1>
@@ -9,7 +9,7 @@
             <ul style="padding-top: 4px;">
                 <img id="left" v-on:mousedown="open"  style="width:9px; padding-left:3px; cursor:pointer;" src="/assets/icons/triangle-right.svg">
                 <img id="down" v-on:mousedown="close"  style="width:14px; padding-left:3px; cursor:pointer;" src="/assets/icons/triangle-down.svg">
-                <li class="settingsBtn" v-if="dropdownContainer">Settings</li>
+                <router-link style="text-decoration:none; color:inherit;" to="/settings"><li class="settingsBtn"  v-if="dropdownContainer">Settings</li></router-link>
                 <li class="signOutBtn" v-on:click="signOut" v-if="dropdownContainer">Sign Out</li>
             </ul>
         </div>

@@ -13,5 +13,5 @@ const FrontLocal = 'http://localhost:8080';
 module.exports = {
     path: local,
     path2: FrontLocal
-    
+      
 };

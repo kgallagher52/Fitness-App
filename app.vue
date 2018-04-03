@@ -9,6 +9,7 @@
 import splash from './components/landingpage.vue';
 import homeerror from './components/errors/homeError';
 
+
 export default {
  
 // Shorthand for function es6 data() instead of data function()

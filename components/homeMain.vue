@@ -2,23 +2,6 @@
   <div>
       <app-home-vue></app-home-vue>
     <body style="width:100%;">
-           <picture-input
-            ref="pictureInput"
-            @change="onChanged"
-            @remove="onRemoved"
-            :width="500"
-            :removable="true"
-            removeButtonClass="ui red button"
-            :height="500"
-            accept="image/jpeg, image/png, image/gif"
-            buttonClass="ui button primary"
-            :customStrings="{
-                upload: '<h1>Upload it!</h1>',
-                drag: 'Drag and drop your image here'
-            }">
-            </picture-input>
-
-            <button @click="attemptUpload" v-bind:class="{ disabled: !image }">Upload</button>
     </body>
   </div>
 </template>

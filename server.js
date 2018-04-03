@@ -2,6 +2,7 @@ var express         = require('express');
 var session         = require('express-session');
 var bodyParser      = require('body-parser');
 var userModel       = require('./models/user-model.js');
+var imageSchema     = require('./models/image-model.js');
 var keys            = require('./config/keys.js');
 var mongoose        = require('mongoose');
 var serveStatic     = require('serve-static');
@@ -176,6 +177,22 @@ app.delete('/session', function (req,res) {
         }
     });
 });
+
+app.post('/images', function (req, res) {
+    console.log("Posting image");
+    var New = new imageSchema({
+            currentFile: req.body.currentFile,
+            name:   req.body.fileName
+            
+        }); 
+        
+        New.save().then(function () {
+            res.set("Access-Control-Allow-Origin", "*");
+            res.status(201).json(New);
+        })      
+});
+
+
 
 // Recipie Post
   

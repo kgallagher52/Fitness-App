@@ -2,8 +2,7 @@
   <div>
       <app-home-vue></app-home-vue>
     <body style="width:100%;">
-          <img
-    </body>
+\    </body>
   </div>
 </template>
 

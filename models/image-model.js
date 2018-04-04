@@ -2,9 +2,9 @@ var mongoose   = require('mongoose');
 // This is modal usally singular that is going to create the schema 
 
 var imageSchema = new mongoose.Schema
-    ({ 
-       currentFile:{type:Array},
-       name:{type: String}
+    ({
+        img: { type: String}, 
+        currentUser:{type:String},
     
 }); 
 

@@ -1,14 +1,12 @@
 <template>
     <div id="app">
         <router-view></router-view>
-
     </div>
 </template>
 
 <script>
 import splash from './components/landingpage.vue';
 import homeerror from './components/errors/homeError';
-
 
 export default {
  

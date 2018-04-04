@@ -29,7 +29,8 @@ var userSchema = new mongoose.Schema
 // This is collecting the data I want once I have a user being called from get session
  userSchema.methods.currentUser = function () {
      return {
-        name: this.name
+        name: this.name,
+        id: this.id
      };
  };
   

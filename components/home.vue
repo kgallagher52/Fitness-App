@@ -13,15 +13,17 @@
                 <li class="signOutBtn" v-on:click="signOut" v-if="dropdownContainer">Sign Out</li>
             </ul>
         </div>
-        
-
+    
     </nav>
-   
+        <body>
+            <home-upload v-bind:currentUser="currentUser"></home-upload>
+        </body>
     </div>
 </template>
 
 <script>
 import Global   from '../global.js';
+import upload   from '../components/homeUpload';
 
 var collectUser = function(user, success, failure){
     return fetch(Global.path + '/session',{
@@ -69,6 +71,7 @@ export default {
     }
   },
     components: {
+        'home-upload': upload
 
     },
     methods: {

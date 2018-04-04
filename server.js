@@ -10,8 +10,11 @@ var passport        = require('passport');
 var passportlocal   = require('passport-local');
 var path            = require('path');
 var Global          = require('./global.js');
+var fs              = require('fs');
+var multer          = require('multer');
 
 var app = express();
+
 
 // Using the middleware
 
@@ -28,6 +31,7 @@ app.use(passport.session());
 app.set('port', (process.env.PORT || 5050));
 
 
+
 app.use(function (req, res, next) {
     // For local
     res.header("Access-Control-Allow-Origin", "http://localhost:8080");
@@ -39,6 +43,9 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
 
 // Connect to mongo
     mongoose.connect(keys.mongodb.dbURI, () => {
@@ -179,17 +186,17 @@ app.delete('/session', function (req,res) {
 });
 
 app.post('/images', function (req, res) {
-    console.log("Posting image");
+
     var New = new imageSchema({
-            currentFile: req.body.currentFile,
-            name:   req.body.fileName
+            img: req.body.image,
+            currentUser: req.body.currentUser
             
         }); 
         
         New.save().then(function () {
             res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(New);
-        })      
+        });     
 });
 
 

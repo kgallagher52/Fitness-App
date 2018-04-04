@@ -56,7 +56,6 @@ var signingIn = function(user, success, failure) {
                 },
                 credentials: 'include',
 
-
             }).then(function (response) {
                 
                 console.log("Promise Complete");

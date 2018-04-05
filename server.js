@@ -11,7 +11,8 @@ var passportlocal   = require('passport-local');
 var path            = require('path');
 var Global          = require('./global.js');
 var fs              = require('fs');
-var multer          = require('multer');
+var crypto          = require('crypto');
+
 
 var app = express();
 
@@ -42,7 +43,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '500mb' }));
 
 
 
@@ -126,8 +127,30 @@ app.delete('/session', function (req,res) {
 // GETS____________________________________________________________
     // Get User
     app.get('/users/:email', function(req, res) {
-        console.log("User", req.user);
         userModel.findOne({email: req.params.email}).then((currentUser) => {
+            if(currentUser){
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(200).json(currentUser);
+            } else {
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(404).json(currentUser);
+
+            }
+            
+        });
+    });
+
+    app.get('/images', function(req, res) {
+            // Sending reguler response
+            image.find().then(function (images) {
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(200).json(images);
+            
+    });
+});
+
+    app.get('/users/:email', function(req, res) {
+        userModel.finda({email: req.params.email}).then((currentUser) => {
             if(currentUser){
                 res.set("Access-Control-Allow-Origin", "*");
                 res.status(200).json(currentUser);
@@ -148,7 +171,7 @@ app.delete('/session', function (req,res) {
     app.post('/users', function (req, res) {
         console.log("Posting Users");
         userModel.findOne({email: req.body.email}).then((currentUser) => {
-            if(currentUser){
+            if(currentUser) {
                 // Already have the user
                 res.set("Access-Control-Allow-Origin", "*");
                 res.status(422).json("User Already Exists");
@@ -158,6 +181,7 @@ app.delete('/session', function (req,res) {
         var newUser = new userModel({
                 name:   req.body.name,
                 email:  req.body.email,
+                profileImg: ''
             }); 
             
             newUser.setPassword(req.body.pw, function (password) {
@@ -186,7 +210,7 @@ app.delete('/session', function (req,res) {
 });
 
 app.post('/images', function (req, res) {
-
+    
     var New = new imageSchema({
             img: req.body.image,
             currentUser: req.body.currentUser
@@ -200,8 +224,38 @@ app.post('/images', function (req, res) {
 });
 
 
+// PUT____________________________________________________________
+app.put('/users', function (req, res) {
+    console.log("Posting Users");
+    userModel.findOne({_id: req.body.currentUser}).then((currentUser) => {
+        if(!currentUser) {
+            // Already have the user
+            res.set("Access-Control-Allow-Origin", "*");
+            res.status(404).json("Couldn't Find User");
+            
+        } else { 
+                       
+        currentUser.profileImg = req.body.image;
+        currentUser.save().then(function () {
+            res.set("Access-Control-Allow-Origin", "*");
+            res.status(200).json(currentUser);
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("User Created");
 
-// Recipie Post
+        }); 
+        }
+    });
+});
   
 // DELETE____________________________________________________________
 

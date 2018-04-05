@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema
         name: {type: String, required: [true, "Name Required"]}, 
         email: {type: String, required: [true, "Email Required"]},
         pw: {type: String, required: [true, "Password Required"]},
+        profileImg: {type: String},
         isAdmin: {type: Boolean, default: false}
     
     });
@@ -30,6 +31,7 @@ var userSchema = new mongoose.Schema
  userSchema.methods.currentUser = function () {
      return {
         name: this.name,
+        profileImg: this.profileImg,
         id: this.id
      };
  };

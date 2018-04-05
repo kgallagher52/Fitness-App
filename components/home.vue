@@ -24,7 +24,6 @@
 <script>
 import Global   from '../global.js';
 import upload   from '../components/homeUpload';
-
 var collectUser = function(user, success, failure){
     return fetch(Global.path + '/session',{
         credentials: 'include',
@@ -55,9 +54,6 @@ var signOut = function() {
 
 };
 
-
-
-
 export default {
 // Shorthand for function es6 data() instead of data function()
 
@@ -66,12 +62,12 @@ export default {
         currentUser: {},
         dropdown: true,
         dropdown2: false,
-        dropdownContainer: false
+        dropdownContainer: false,
 
     }
   },
     components: {
-        'home-upload': upload
+        'home-upload': upload 
 
     },
     methods: {
@@ -96,6 +92,8 @@ export default {
             console.log("Logged Out");
             signOut(this.currentUser,);
         },
+        
+    
     },
 
     created: function () {
@@ -110,11 +108,10 @@ export default {
                 // failure
                 console.log(thisUser)
 
-            });
-       
-            console.log('created function fired'); 
+        });
         
     },
+
 }
 
 </script>

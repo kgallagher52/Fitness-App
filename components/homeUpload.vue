@@ -1,18 +1,13 @@
 <template>
   <div id="upload">
-    <div v-if="!newItem.photo">
-        <input id="file" type="file" @change="onFileChange">
+    <div id="profileImage" class="profile-image" v-if="currentUser.profileImg">
+        <img class="uploadedimg responsive" :src="currentUser.profileImg" />
     </div>
 
     <div v-else>
-        <img style="width: 262px;" class="uploadedimg" :src="newItem.photo" />
-        <button class="removeimage" @click="removeImage">Remove image</button>
+        <input id="file" type="file" @change="onFileChange">
     </div>
 
-    <div>
-        {{ newItem.photo }}
-    </div>
-        
   </div>
 </template>
 
@@ -20,31 +15,29 @@
 <script>
     import home from './home.vue';
     import Global from '../global.js';
+   
     var postImage = function(image, currentUser, success, failure) {
-        console.log("Original photo object", image);
-        let userId  = currentUser.id;
+        var userId  = currentUser.id;
+        var encodedString = 'image=' + encodeURIComponent(image) + '&currentUser=' + encodeURIComponent(userId);
+        fetch(Global.path +'/users', {
+            body: encodedString,
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+            }).then(function (response) {
+                console.log("Promise Complete");
+                var status = response.status;
 
+                if (status == 201) {
+                    success();
 
-        // var encodedString = 'image=' + encodeURIComponent(photo) + '&currentUser=' + encodeURIComponent(userId);
-        // fetch(Global.path +'/images', {
-        //     body: encodedString,
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     }
-        //     }).then(function (response) {
-        //         console.log("Promise Complete");
-        //         var status = response.status;
-
-        //         if (status == 201) {
-        //             success();
-
-        //         } else {
-        //             failure();
-        //     }   
-        // });    
+                } else {
+                    failure();
+            }   
+        });    
     };
-
+    
 
     export default {
         props:['currentUser'],
@@ -55,16 +48,14 @@
                 },
                 selectedFile: {},
                 item:""
-                
             }
             
         },
         components: {
             'app-home-vue': home
-  
-
         },
         methods: {
+            
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
                 if (!files.length)
@@ -78,16 +69,18 @@
 
                 reader.onload = (e) => {
                     vm.newItem.photo = e.target.result;
-                };
-                reader.readAsDataURL(file);
-                postImage(this.newItem, this.currentUser, function () {
-                    console.log("Success");
+                          postImage(vm.newItem.photo, this.currentUser, function () {
+                        console.log("Success");
+
            
                     }, function () {
-                        // failure
-                        console.log("Fail")
+                        console.log("callback function")
                 
                     });
+                };
+                
+                reader.readAsDataURL(file);
+          
 
                 },
 
@@ -111,6 +104,33 @@
 
 
 <style scoped>
+
+#upload {
+    background-color: #fff;
+}
+
+.profile-image {
+    width: 200px;
+}
+
+#profileImage {
+    border: 1px solid;
+    padding: 12px;
+    box-shadow: 5px 10px #888888;
+    
+    margin: 36px;
+    padding: 0;
+}
+
+img.responsive {
+    width:100%;
+    height:auto;
+  }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+
 #file {
     width: 300px;
     height: 300px;
@@ -120,6 +140,7 @@
     background-position: 20% 30%;
     cursor: pointer;
 }
+
 
 </style>
 

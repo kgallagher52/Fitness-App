@@ -1,20 +1,33 @@
 <template>
     <div>
-    <nav>
-        <router-link style="text-decoration:none; color:inherit; width:100%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
-        <div>
-            <img src="/assets/icons/person.svg">
-            <h1>Welcome</h1>
-            <h1>{{ currentUser.name }}</h1>
-            <ul style="padding-top: 4px;">
-                <img id="left" v-on:mousedown="open"  style="width:9px; padding-left:3px; cursor:pointer;" src="/assets/icons/triangle-right.svg">
-                <img id="down" v-on:mousedown="close"  style="width:14px; padding-left:3px; cursor:pointer;" src="/assets/icons/triangle-down.svg">
-                <router-link style="text-decoration:none; color:inherit;" to="/settings"><li class="settingsBtn"  v-if="dropdownContainer">Settings</li></router-link>
-                <li class="signOutBtn" v-on:click="signOut" v-if="dropdownContainer">Sign Out</li>
+        <nav class="navbar navbar-dark">
+            <router-link style="text-decoration:none; color:inherit; width:100%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
+        </nav>
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Home</router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">something</router-link>
+                </li>
+
+                <li class="nav-item" style="position:absolute; right: 8%;">
+                    <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Hi, {{ currentUser.name }}</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <router-link style="text-decoration:none; color:inherit;" to="/settings"><li class="dropdown-item">Settings</li></router-link>
+                            <li class="dropdown-item" v-on:click="signOut">Sign Out</li>
+
+                    </div>                       
+                </li>
             </ul>
+            </div>
+            
+        <div>
+
+    <!-- <img src="/assets/icons/person.svg"> -->
+
         </div>
-    
-    </nav>
         <body>
             <home-upload v-bind:currentUser="currentUser"></home-upload>
         </body>
@@ -71,29 +84,12 @@ export default {
 
     },
     methods: {
-        open() {
-            var left = document.getElementById("left");
-            var down = document.getElementById("down");
-            this.dropdownContainer = true;
-            left.style.display = "none";
-            down.style.display = "block";
-
-        },
-        close() {
-            var down = document.getElementById("down");
-            var left = document.getElementById("left");
-            this.dropdownContainer = false;
-            down.style.display = "none";
-            left.style.display = "block";
-
-        },
         
         signOut: function () {
             console.log("Logged Out");
             signOut(this.currentUser,);
         },
-        
-    
+
     },
 
     created: function () {
@@ -150,10 +146,10 @@ nav ul {
     list-style: none;
 }
 
-.btn {
+/* .btn {
     width: 0;
     height: 0;
-}
+} */
 
 
 nav li:hover {

@@ -1,12 +1,13 @@
 <template>
-  <div id="upload">
-    <div id="profileImage" class="profile-image" v-if="currentUser.profileImg">
-        <img class="uploadedimg responsive" :src="currentUser.profileImg" />
-    </div>
 
-    <div v-else>
-        <input id="file" type="file" @change="onFileChange">
-    </div>
+     <div id="upload">
+        <div id="" class="container" v-if="currentUser.profileImg">
+            <img :src="currentUser.profileImg" class="img-rounded" alt="Cinque Terre" width="304" height="236">
+        </div>
+
+        <div v-else>
+            <input id="file" type="file" @change="onFileChange">
+        </div>
 
   </div>
 </template>
@@ -122,10 +123,7 @@
     padding: 0;
 }
 
-img.responsive {
-    width:100%;
-    height:auto;
-  }
+
 *, *::before, *::after {
     box-sizing: border-box;
 }

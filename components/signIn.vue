@@ -1,34 +1,34 @@
 <template>
   <div>
-    <button class="btn" type="button" id="sign-in-btn" v-on:click="modalS.show = true">SIGN IN</button>
-    <div class="modal-backdrop" id="modal" v-show="modalS.show">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container" style="height:auto; overflow: auto; width:max-content;">
-            <div class="modal-header">
+    <button class="btn-M" type="button" id="sign-in-btn-M" v-on:click="modalS.show = true">SIGN IN</button>
+    <div class="modal-backdrop-M" id="modal" v-show="modalS.show">
+      <div class="modal-mask-M">
+        <div class="modal-wrapper-M">
+          <div class="modal-container-M" style="height:auto; overflow: auto; width:max-content;">
+            <div class="modal-header-M">
               <slot name="header">
                 <h1>Sign In</h1>
               </slot>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body-M">
               <slot name="body">
                   <form style="display: inline-flex; padding-top:5%; flex-direction: row;">>
-                      <div class="Form-Container">Email</br><input v-model="user.emails" style="width: 300px;" id="emailS" placeholder="Email" class="Form-Control" type="text"></input></div>
-                      <div class="Form-Container">Password </br><input v-model="user.pws" style="width: 300px;" id="pwS" class="Form-Control" placeholder="Password"type="password"></input></div>
+                      <div class="Form-Container-M">Email</br><input v-model="user.emails" style="width: 300px;" id="emailS" placeholder="Email" class="Form-Control-M" type="text"></input></div>
+                      <div class="Form-Container-M">Password </br><input v-model="user.pws" style="width: 300px;" id="pwS" class="Form-Control-M" placeholder="Password"type="password"></input></div>
                   </form>
               </slot>
             </div>
 
             <span style="color:red; padding-left: 28px; float:left; font-size:14px;" v-if="errors.exist">{{ errors.err }}</span>
             
-            <div class="modal-footer">
+            <div class="modal-footer-M">
               <slot name="footer">
-                  <button class="btn submit" v-on:click="signIn" style="margin: 0;" >
+                  <button class="btn-M submit-M" v-on:click="signIn" style="margin: 0;" >
                      SIGN IN
                   </button>
                   
-                  <button class="btn submit" v-on:click="modalS.show = false" style=" margin: 0px 18px 0px 0px;">
+                  <button class="btn-M submit-M" v-on:click="modalS.show = false" style=" margin: 0px 18px 0px 0px;">
                       CANCEL
                   </button>
               </slot>
@@ -134,7 +134,7 @@ var signingIn = function(user, success, failure) {
 
   }
 
- .btn {
+ .btn-M {
     margin: 6px;
     width: 76px;
     height: 32px;
@@ -148,16 +148,16 @@ var signingIn = function(user, success, failure) {
     font-style: caps;
 }
 
-.submit {
+.submit-M {
   background-color: #164172;
 }
 
-.btn:hover {
+.btn-M:hover {
     background-color: #686868;
     border: black 1px solid;
     transition: 0.3s linear;
 }
- .modal-mask {
+ .modal-mask-M {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -169,13 +169,13 @@ var signingIn = function(user, success, failure) {
   transition: opacity .3s ease;
 }
 
-.modal-wrapper {
+.modal-wrapper-M {
   display: table-cell;
   vertical-align: middle;
   
 }
 
-.modal-container {
+.modal-container-M {
   width: 40%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -186,53 +186,53 @@ var signingIn = function(user, success, failure) {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header {
+.modal-header-M {
   color: #fff;
 }
 
-.modal-body {
+.modal-body-M {
   margin: 20px 0;
 }
 
-.modal-footer {
+.modal-footer-M {
   margin-right: 30px;
 }
 
 
-.modal-enter {
+.modal-enter-M {
   opacity: 0;
 }
 
-.modal-leave-active {
+.modal-leave-active-M {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modal-enter-M .modal-container-M,
+.modal-leave-active-M .modal-container-M {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 
 
-.modal-footer button {
+.modal-footer-M button {
   width: 115px;
 }
 
-.Form-Control {
+.Form-Control-M {
   height: 35px;
   border: inherit;
   width: 100%;
   border-radius: 5px;
 }
 
-.Form-Container {
+.Form-Container-M {
   display: block;
   padding: 16px;
   font-size: 1.3rem;
   color: gray;
 }
 
-.Form-Container p {
+.Form-Container-M p {
   margin: 0;
   padding-top: 14px;
 }

@@ -1,24 +1,24 @@
 <template>
   <div>
-    <button class="btn" type="button" id="sign-in-btn" v-on:click="modalR.show = true">REGISTER</button>
-    <div class="modal-backdrop" id="modal" v-show="modalR.show">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container" style="height:auto; overflow: auto; width:max-content;">
+    <button class="btn-M" type="button" id="sign-in-btn-M" v-on:click="modalR.show = true">REGISTER</button>
+    <div class="modal-backdrop-M" id="modal-M" v-show="modalR.show">
+      <div class="modal-mask-M">
+        <div class="modal-wrapper-M">
+          <div class="modal-container-M" style="height:auto; overflow: auto; width:max-content;">
 
-            <div class="modal-header">
+            <div class="modal-header-M">
               <slot name="header">
                 <h1>Register</h1>
               </slot>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body-M">
               <slot name="body">
                 <form style="">
-                    <div class="Form-Container">Name<input v-model="newUser.name" id="name"  placeholder="Name" class="Form-Control" type="text"></div>
-                    <div class="Form-Container">Email<input v-model="newUser.email" id="email" placeholder="Email" class="Form-Control" type="text"></div>
-                    <div class="Form-Container">Password<input v-model="newUser.pw" id="pw" class="Form-Control" placeholder="Password" type="password"></div>
-                    <div class="Form-Container">Confirm password <input v-model="newUser.cpw" class="Form-Control" id="cpw" type="password"  placeholder="Confirm Password"></div>
+                    <div class="Form-Container-M">Name<input v-model="newUser.name" id="name"  placeholder="Name" class="Form-Control-M" type="text"></div>
+                    <div class="Form-Container-M">Email<input v-model="newUser.email" id="email" placeholder="Email" class="Form-Control-M" type="text"></div>
+                    <div class="Form-Container-M">Password<input v-model="newUser.pw" id="pw" class="Form-Control-M" placeholder="Password" type="password"></div>
+                    <div class="Form-Container-M">Confirm password <input v-model="newUser.cpw" class="Form-Control-M" id="cpw" type="password"  placeholder="Confirm Password"></div>
                     <span v-if="userIsInvalid" style="color:#fff; padding-left: 7px; float:left; font-size:14px;">{{ errors.err2 }}</span></br> 
                 </form>
               </slot>
@@ -26,15 +26,15 @@
             <span style="color:red; float:left; padding-left: 7px; font-size:14px;"  v-if="errors.exist">{{ errors.err }}</span>
                     <span v-if="passwordIsInvalid" style="color:red; padding-left: 7px; float:left; font-size:14px;">{{ errors.errpw }}</span> 
 
-            <div class="modal-footer">
+            <div class="modal-footer-M">
 
               <slot name="footer">
 
-                  <button class="btn submit" v-on:click="register" style="margin: 0;" >
+                  <button class="btn-M submit-M" v-on:click="register" style="margin: 0;" >
                       SUBMIT
                   </button>
                   
-                  <button class="btn submit" v-on:click="modalR.show = false" style=" margin: 0px 18px 0px 0px;">
+                  <button class="btn-M submit-M" v-on:click="modalR.show = false" style=" margin: 0px 18px 0px 0px;">
                       CANCEL
                   </button>
               </slot>
@@ -194,7 +194,7 @@ var createUser = function(newUser, success, failure) {
 
   }
 
- .btn {
+ .btn-M {
     margin: 6px;
     width: 76px;
     height: 32px;
@@ -208,16 +208,16 @@ var createUser = function(newUser, success, failure) {
     font-style: caps;
 }
 
-.submit {
+.submit-M {
   background-color: #164172;
 }
 
-.btn:hover {
+.btn-M:hover {
     background-color: #686868;
     border: black 1px solid;
     transition: 0.3s linear;
 }
- .modal-mask {
+ .modal-mask-M {
   position: fixed;
   z-index: 9998;
   top: 0;
@@ -229,13 +229,13 @@ var createUser = function(newUser, success, failure) {
   transition: opacity .3s ease;
 }
 
-.modal-wrapper {
+.modal-wrapper-M {
   display: table-cell;
   vertical-align: middle;
   
 }
 
-.modal-container {
+.modal-container-M {
   width: 40%;
   margin: 0px auto;
   padding: 20px 30px;
@@ -246,46 +246,46 @@ var createUser = function(newUser, success, failure) {
   font-family: Helvetica, Arial, sans-serif;
 }
 
-.modal-header {
+.modal-header-M {
   color: #fff;
 }
 
-.modal-body {
+.modal-body-M {
   margin: 20px 0;
 }
 
-.modal-footer {
+.modal-footer-M {
   margin-right: 30px;
 }
 
 
-.modal-enter {
+.modal-enter-M {
   opacity: 0;
 }
 
-.modal-leave-active {
+.modal-leave-active-M {
   opacity: 0;
 }
 
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
+.modal-enter-M .modal-container-M,
+.modal-leave-active-M .modal-container-M {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 
 
-.modal-footer button {
+.modal-footer-M button {
   width: 115px;
 }
 
-.Form-Control {
+.Form-Control-M {
   height: 35px;
   border: inherit;
   width: 100%;
   border-radius: 5px;
 }
 
-.Form-Container {
+.Form-Container-M {
   display: inline-block;
   padding: 8px;
   font-size: 1.3rem;
@@ -293,7 +293,7 @@ var createUser = function(newUser, success, failure) {
   width: 45%;
 }
 
-.Form-Container p {
+.Form-Container-M p {
   margin: 0;
   padding-top: 14px;
 }

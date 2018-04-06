@@ -1,16 +1,31 @@
 <template>
     <div>
         <nav class="navbar navbar-dark">
-            <router-link style="text-decoration:none; color:inherit; width:100%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
+            <router-link style="text-decoration:none; color:inherit; width:50%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
+            <h3 style="width: 8%;" class="navbar-header">{{ Page }}</h3>
         </nav>
         <div class="container">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Home</router-link>
                 </li>
+
                 <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">something</router-link>
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Clients</router-link>
                 </li>
+
+                <li class="nav-item">
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Workouts</router-link>
+                </li>
+
+                  <li class="nav-item">
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Messages</router-link>
+                </li>
+
+                <li class="nav-item">
+                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Calendar</router-link>
+                </li>
+
 
                 <li class="nav-item" style="position:absolute; right: 8%;">
                     <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Hi, {{ currentUser.name }}</a>
@@ -29,7 +44,7 @@
 
         </div>
         <body>
-            <home-upload v-bind:currentUser="currentUser"></home-upload>
+            <home-upload v-bind:currentUser="currentUser, Page"></home-upload>
         </body>
     </div>
 </template>
@@ -76,6 +91,7 @@ export default {
         dropdown: true,
         dropdown2: false,
         dropdownContainer: false,
+        Page: 'Home'
 
     }
   },
@@ -84,7 +100,10 @@ export default {
 
     },
     methods: {
-        
+        nameChange() {
+            alert('working');
+        },
+
         signOut: function () {
             console.log("Logged Out");
             signOut(this.currentUser,);
@@ -191,7 +210,7 @@ img.responsive {
 
 body {
     background-color: #E8E7E4;
-    margin: 0;
+    margin: 20px;
 }
 
 .wrapper {

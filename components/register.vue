@@ -4,7 +4,7 @@
     <div class="modal-backdrop-M" id="modal-M" v-show="modalR.show">
       <div class="modal-mask-M">
         <div class="modal-wrapper-M">
-          <div class="modal-container-M" style="height:auto; overflow: auto; width:max-content;">
+          <div class="modal-container-M" style="height:auto; overflow: auto;">
 
             <div class="modal-header-M">
               <slot name="header">
@@ -236,7 +236,7 @@ var createUser = function(newUser, success, failure) {
 }
 
 .modal-container-M {
-  width: 40%;
+  width: 60%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: rgba(0,0,0,0.9);
@@ -288,7 +288,6 @@ var createUser = function(newUser, success, failure) {
 .Form-Container-M {
   display: inline-block;
   padding: 8px;
-  font-size: 1.3rem;
   color: gray;
   width: 45%;
 }

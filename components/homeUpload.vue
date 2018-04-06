@@ -41,14 +41,17 @@
     
 
     export default {
-        props:['currentUser'],
+        props:[
+            'currentUser', 'Page'
+            ],
         data() {
             return {
                 newItem: {
                     photo:''
                 },
                 selectedFile: {},
-                item:""
+                item:"",
+                
             }
             
         },

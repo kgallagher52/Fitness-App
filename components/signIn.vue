@@ -228,7 +228,6 @@ var signingIn = function(user, success, failure) {
 .Form-Container-M {
   display: block;
   padding: 16px;
-  font-size: 1.3rem;
   color: gray;
 }
 

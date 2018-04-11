@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0068)http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" class="medium-up-screen gr__passlib_readthedocs_io"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    
+    <title>passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation</title>
+    
+    <link rel="stylesheet" href="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/cloud.css" type="text/css">
+    <link rel="stylesheet" href="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/pygments.css" type="text/css">
+    <link rel="stylesheet" href="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/badge_only.css" type="text/css">
+    <link rel="stylesheet" href="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/css" type="text/css">
+    
+    <script type="text/javascript" async="" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/ga.js"></script><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.7.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script><style type="text/css">
+:root .ethical-rtd
+{ display: none !important; }</style>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/underscore.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/doctools.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/readthedocs-doc-embed.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/jquery.cookie.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/cloud.base.js"></script>
+    <script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/cloud.js"></script>
+    <link rel="shortcut icon" href="http://passlib.readthedocs.io/en/stable/_static/logo.ico">
+    <link rel="index" title="Index" href="http://passlib.readthedocs.io/en/stable/genindex.html">
+    <link rel="search" title="Search" href="http://passlib.readthedocs.io/en/stable/search.html">
+    <link rel="copyright" title="Copyright" href="http://passlib.readthedocs.io/en/stable/copyright.html">
+    <link rel="next" title="passlib.hash.sha256_crypt - SHA-256 Crypt" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha256_crypt.html">
+    <link rel="prev" title="passlib.hash - Password Hashing Schemes" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+<!-- RTD Extra Head -->
+
+<!-- 
+Always link to the latest version, as canonical.
+http://docs.readthedocs.org/en/latest/canonical.html
+-->
+<link rel="canonical" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html">
+
+<link rel="stylesheet" href="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/readthedocs-doc-embed.css" type="text/css">
+
+<script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/readthedocs-data.js"></script>
+
+<!-- Add page-specific data, which must exist in the page js, not global -->
+<script type="text/javascript">
+READTHEDOCS_DATA['page'] = 'lib/passlib.hash.bcrypt' 		
+READTHEDOCS_DATA['source_suffix'] = '.rst'
+</script>
+
+<script type="text/javascript" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/readthedocs-dynamic-include.js"></script>
+
+<!-- end RTD <extrahead> --></head>
+  <body role="document" data-gr-c-s-loaded="true" style="" cz-shortcut-listen="true">
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http://passlib.readthedocs.io/en/stable/genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/py-modindex.html" title="Python Module Index">modules</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/contents.html" title="Table Of Contents" accesskey="C">toc</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha256_crypt.html" title="passlib.hash.sha256_crypt - SHA-256 Crypt" accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html" title="passlib.hash - Password Hashing Schemes" accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="http://passlib.readthedocs.io/en/stable/index.html">Passlib 1.7 Documentation</a> »</li>
+
+          <li class="nav-item nav-item-1"><a href="http://passlib.readthedocs.io/en/stable/lib/index.html">API Reference</a> »</li>
+          <li class="nav-item nav-item-2"><a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html" accesskey="U"><code class="docutils literal"><span class="pre">passlib.hash</span></code> - Password Hashing Schemes</a> »</li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="passlib-hash-bcrypt-bcrypt">
+<h1><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#passlib.hash.bcrypt" title="passlib.hash.bcrypt"><code class="xref py py-class docutils literal"><span class="pre">passlib.hash.bcrypt</span></code></a> - BCrypt<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#passlib-hash-bcrypt-bcrypt" title="Permalink to this headline">¶</a></h1>
+<p>BCrypt was developed to replace <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.md5_crypt.html#passlib.hash.md5_crypt" title="passlib.hash.md5_crypt"><code class="xref py py-class docutils literal"><span class="pre">md5_crypt</span></code></a> for BSD systems.
+It uses a modified version of the Blowfish stream cipher. Featuring
+a large salt and variable number of rounds, it’s currently the default
+password hash for many systems (notably BSD), and has no known weaknesses.
+It is one of the four hashes Passlib <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/narr/quickstart.html#recommended-hashes"><span class="std std-ref">recommends</span></a>
+for new applications. This class can be used directly as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">passlib.hash</span> <span class="k">import</span> <span class="n">bcrypt</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># generate new salt, hash password</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span> <span class="o">=</span> <span class="n">bcrypt</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">h</span>
+<span class="go">'$2a$12$NT0I31Sa7ihGEWpka9ASYrEFkhuTNeBQ2xfZskIiiJeyFXhRgS.Sy'</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the same, but with an explicit number of rounds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bcrypt</span><span class="o">.</span><span class="n">using</span><span class="p">(</span><span class="n">rounds</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span><span class="o">.</span><span class="n">hash</span><span class="p">(</span><span class="s2">"password"</span><span class="p">)</span>
+<span class="go">'$2b$13$HMQTprwhaUwmir.g.ZYoXuRJhtsbra4uj.qJPHrKsX5nGlhpts0jm'</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># verify password</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bcrypt</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="s2">"password"</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bcrypt</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="s2">"wrong"</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<div class="admonition note inline-title">
+<p class="first admonition-title">Note</p>
+<p class="last">It is strongly recommended that you install
+<a class="reference external" href="https://pypi.python.org/pypi/bcrypt">bcrypt</a>
+when using this hash.</p>
+</div>
+<div class="admonition seealso inline-title">
+<p class="first admonition-title">See also</p>
+<p class="last">the generic <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/narr/hash-tutorial.html#password-hash-examples"><span class="std std-ref">PasswordHash usage examples</span></a></p>
+</div>
+<div class="section" id="interface">
+<h2>Interface<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="passlib.hash.bcrypt">
+<em class="property">class </em><code class="descclassname">passlib.hash.</code><code class="descname">bcrypt</code><a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#passlib.hash.bcrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class implements the BCrypt password hash, and follows the <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.ifc.html#password-hash-api"><span class="std std-ref">PasswordHash API</span></a>.</p>
+<p>It supports a fixed-length salt, and a variable number of rounds.</p>
+<p>The <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.ifc.html#passlib.ifc.PasswordHash.using" title="passlib.ifc.PasswordHash.using"><code class="xref py py-meth docutils literal"><span class="pre">using()</span></code></a> method accepts the following optional keywords:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>salt</strong> (<em>str</em>) – Optional salt string.
+If not specified, one will be autogenerated (this is recommended).
+If specified, it must be 22 characters, drawn from the regexp range <code class="docutils literal"><span class="pre">[./0-9A-Za-z]</span></code>.</li>
+<li><strong>rounds</strong> (<em>int</em>) – Optional number of rounds to use.
+Defaults to 12, must be between 4 and 31, inclusive.
+This value is logarithmic, the actual number of iterations used will be <code class="samp docutils literal"><span class="pre">2**</span><em><span class="pre">rounds</span></em></code>
+– increasing the rounds by +1 will double the amount of time taken.</li>
+<li><strong>ident</strong> (<em>str</em>) – <p>Specifies which version of the BCrypt algorithm will be used when creating a new hash.
+Typically this option is not needed, as the default (<code class="docutils literal"><span class="pre">"2b"</span></code>) is usually the correct choice.
+If specified, it must be one of the following:</p>
+<ul>
+<li><code class="docutils literal"><span class="pre">"2"</span></code> - the first revision of BCrypt, which suffers from a minor security flaw and is generally not used anymore.</li>
+<li><code class="docutils literal"><span class="pre">"2a"</span></code> - some implementations suffered from rare security flaws, replaced by 2b.</li>
+<li><code class="docutils literal"><span class="pre">"2y"</span></code> - format specific to the <em>crypt_blowfish</em> BCrypt implementation,
+identical to <code class="docutils literal"><span class="pre">"2b"</span></code> in all but name.</li>
+<li><code class="docutils literal"><span class="pre">"2b"</span></code> - latest revision of the official BCrypt algorithm, current default.</li>
+</ul>
+</li>
+<li><strong>truncate_error</strong> (<em>bool</em>) – <p>By default, BCrypt will silently truncate passwords larger than 72 bytes.
+Setting <code class="docutils literal"><span class="pre">truncate_error=True</span></code> will cause <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.ifc.html#passlib.ifc.PasswordHash.hash" title="passlib.ifc.PasswordHash.hash"><code class="xref py py-meth docutils literal"><span class="pre">hash()</span></code></a>
+to raise a <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html#passlib.exc.PasswordTruncateError" title="passlib.exc.PasswordTruncateError"><code class="xref py py-exc docutils literal"><span class="pre">PasswordTruncateError</span></code></a> instead.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.7.</span></p>
+</div>
+</li>
+<li><strong>relaxed</strong> (<em>bool</em>) – <p>By default, providing an invalid value for one of the other
+keywords will result in a <code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code>. If <code class="docutils literal"><span class="pre">relaxed=True</span></code>,
+and the error can be corrected, a <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html#passlib.exc.PasslibHashWarning" title="passlib.exc.PasslibHashWarning"><code class="xref py py-exc docutils literal"><span class="pre">PasslibHashWarning</span></code></a>
+will be issued instead. Correctable errors include <code class="docutils literal"><span class="pre">rounds</span></code>
+that are too small or too large, and <code class="docutils literal"><span class="pre">salt</span></code> strings that are too long.</p>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 1.6.</span></p>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.6: </span>This class now supports <code class="docutils literal"><span class="pre">"2y"</span></code> hashes, and recognizes
+(but does not support) the broken <code class="docutils literal"><span class="pre">"2x"</span></code> hashes.
+(see the <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#crypt-blowfish-bug"><span class="std std-ref">crypt_blowfish bug</span></a>
+for details).</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.6: </span>Added a pure-python backend.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.6.3: </span>Added support for <code class="docutils literal"><span class="pre">"2b"</span></code> variant.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.7: </span>Now defaults to <code class="docutils literal"><span class="pre">"2b"</span></code> variant.</p>
+</div>
+</dd></dl>
+
+<span class="target" id="bcrypt-backends"></span><div class="section" id="index-0">
+<span id="id1"></span><h3>Bcrypt Backends<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#index-0" title="Permalink to this headline">¶</a></h3>
+<p>This class will use the first available of five possible backends:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://pypi.python.org/pypi/bcrypt">bcrypt</a>, if installed.</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/py-bcrypt">py-bcrypt</a>, if installed.</li>
+<li><a class="reference external" href="https://bitbucket.org/ares/bcryptor/overview">bcryptor</a>, if installed.</li>
+<li>stdlib’s <code class="xref py py-func docutils literal"><span class="pre">crypt.crypt()</span></code>, if the host OS supports BCrypt
+(primarily BSD-derived systems).</li>
+<li>A pure-python implementation of BCrypt, built into Passlib.</li>
+</ol>
+<p>If no backends are available, <code class="xref py py-meth docutils literal"><span class="pre">hash()</span></code> and <code class="xref py py-meth docutils literal"><span class="pre">verify()</span></code>
+will throw <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html#passlib.exc.MissingBackendError" title="passlib.exc.MissingBackendError"><code class="xref py py-exc docutils literal"><span class="pre">MissingBackendError</span></code></a> when they are invoked.
+You can check which backend is in use by calling <code class="xref py py-meth docutils literal"><span class="pre">bcrypt.get_backend()</span></code>.</p>
+<p>As of Passlib 1.6.3, a one-time check is peformed when the backend is first loaded,
+to detect the backend’s capabilities &amp; bugs.  If this check detects a fatal bug,
+a <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html#passlib.exc.PasslibSecurityError" title="passlib.exc.PasslibSecurityError"><code class="xref py py-exc docutils literal"><span class="pre">PasslibSecurityError</span></code></a> will be raised.  This generally means
+you need to upgrade the external package being used as the backend
+(this will be detailed in the error message).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p><em>The pure-python backend (#5) is disabled by default!</em></p>
+<p>That backend is currently too slow to be usable given the number of rounds required
+for security. That said, if you have no other alternative and need to use it,
+set the environmental variable <code class="docutils literal"><span class="pre">PASSLIB_BUILTIN_BCRYPT="enabled"</span></code>
+before importing Passlib.</p>
+<p class="last">What’s “too slow”? Passlib’s <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/narr/hash-tutorial.html#rounds-selection-guidelines"><span class="std std-ref">rounds selection guidelines</span></a>
+currently require BCrypt be able to do at least 12 cost in under 300ms. By this standard
+the pure-python backend is 128x too slow under CPython 2.7, and 16x too slow under PyPy 1.8.
+(speedups are welcome!)</p>
+</div>
+</div>
+</div>
+<div class="section" id="format-algorithm">
+<h2>Format &amp; Algorithm<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#format-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Bcrypt is compatible with the <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/modular_crypt_format.html#modular-crypt-format"><span class="std std-ref">Modular Crypt Format</span></a>, and uses a number of identifying
+prefixes: <code class="docutils literal"><span class="pre">$2$</span></code>, <code class="docutils literal"><span class="pre">$2a$</span></code>, <code class="docutils literal"><span class="pre">$2x$</span></code>, <code class="docutils literal"><span class="pre">$2y$</span></code>, and <code class="docutils literal"><span class="pre">$2b$</span></code>.  Each prefix indicates
+a different revision of the BCrypt algorithm; and all but the <code class="docutils literal"><span class="pre">$2b$</span></code> identifier are
+considered deprecated.</p>
+<p>An example hash (of <code class="docutils literal"><span class="pre">password</span></code>) is:</p>
+<blockquote>
+<div><code class="docutils literal"><span class="pre">$2b$12$GhvMmNVjRW29ulnudl.LbuAnUtN/LRfe1JsBm1Xu6LE3059z5Tr8m</span></code></div></blockquote>
+<p>Bcrypt hashes have the format <code class="samp docutils literal"><span class="pre">$2a$</span><em><span class="pre">rounds</span></em><span class="pre">$</span><em><span class="pre">salt</span></em><em><span class="pre">checksum</span></em></code>, where:</p>
+<ul class="simple">
+<li><code class="samp docutils literal"><em><span class="pre">rounds</span></em></code> is a cost parameter, encoded as 2 zero-padded decimal digits,
+which determines the number of iterations used via <code class="samp docutils literal"><em><span class="pre">iterations</span></em><span class="pre">=2**</span><em><span class="pre">rounds</span></em></code> (rounds is 12 in the example).</li>
+<li><code class="samp docutils literal"><em><span class="pre">salt</span></em></code> is a 22 character salt string, using the characters in the regexp range <code class="docutils literal"><span class="pre">[./A-Za-z0-9]</span></code> (<code class="docutils literal"><span class="pre">GhvMmNVjRW29ulnudl.Lbu</span></code> in the example).</li>
+<li><code class="samp docutils literal"><em><span class="pre">checksum</span></em></code> is a 31 character checksum, using the same characters as the salt (<code class="docutils literal"><span class="pre">AnUtN/LRfe1JsBm1Xu6LE3059z5Tr8m</span></code> in the example).</li>
+</ul>
+<p>While BCrypt’s basic algorithm is described in its design document <a class="footnote-reference" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#f1" id="id3">[1]</a>,
+the OpenBSD implementation <a class="footnote-reference" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#f2" id="id4">[2]</a> is considered the canonical reference, even
+though it differs from the design document in a few small ways.</p>
+</div>
+<div class="section" id="security-issues">
+<h2>Security Issues<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#security-issues" title="Permalink to this headline">¶</a></h2>
+<ul id="bcrypt-password-truncation">
+<li><p class="first">Password Truncation.</p>
+<p>While not a security issue per-se, bcrypt does have one major limitation:
+password are truncated on the first NULL byte (if any),
+and only the first 72 bytes of a password are hashed... all the rest are ignored.
+Furthermore, bytes 55-72 are not fully mixed into the resulting hash (citation needed!).
+To work around both these issues, many applications first run the password through a message
+digest such as SHA2-256. Passlib offers the premade <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt_sha256.html"><span class="doc">passlib.hash.bcrypt_sha256 - BCrypt+SHA256</span></a>
+to take care of this issue.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="deviations">
+<h2>Deviations<a class="headerlink" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#deviations" title="Permalink to this headline">¶</a></h2>
+<p>This implementation of bcrypt differs from others in a few ways:</p>
+<ul>
+<li><p class="first">Restricted salt string character set:</p>
+<p>BCrypt does not specify what the behavior should be when
+passed a salt string outside of the regexp range <code class="docutils literal"><span class="pre">[./A-Za-z0-9]</span></code>.
+In order to avoid this situation, Passlib strictly limits salts to the
+allowed character set, and will throw a <code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> if an invalid
+salt character is encountered.</p>
+</li>
+<li><p class="first">Unicode Policy:</p>
+<p>The underlying algorithm takes in a password specified
+as a series of non-null bytes, and does not specify what encoding
+should be used; though a <code class="docutils literal"><span class="pre">us-ascii</span></code> compatible encoding
+is implied by nearly all implementations of bcrypt
+as well as all known reference hashes.</p>
+<p>In order to provide support for unicode strings,
+Passlib will encode unicode passwords using <code class="docutils literal"><span class="pre">utf-8</span></code>
+before running them through bcrypt. If a different
+encoding is desired by an application, the password should be encoded
+before handing it to Passlib.</p>
+</li>
+<li><p class="first">Padding Bits</p>
+<p>BCrypt’s base64 encoding results in the last character of the salt
+encoding only 2 bits of data, the remaining 4 are “padding” bits.
+Similarly, the last character of the digest contains 4 bits of data,
+and 2 padding bits. Because of the way they are coded, many BCrypt implementations
+will reject <em>all</em> passwords if these padding bits are not set to 0.
+Due to a legacy <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/history/1.5.html#bcrypt-padding-issue"><span class="std std-ref">issue</span></a> with Passlib &lt;= 1.5.2,
+Passlib will print a warning if it encounters hashes with any padding bits set,
+and then validate the hash as if the padding bits were cleared.
+(This behavior will eventually be deprecated and such hashes
+will throw a <code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> instead).</p>
+</li>
+<li><p class="first">The <em>crypt_blowfish</em> 8-bit bug</p>
+<p id="crypt-blowfish-bug">Pre-1.1 versions of the <a class="reference external" href="http://www.openwall.com/crypt/">crypt_blowfish</a>
+bcrypt implementation suffered from a serious flaw <a class="footnote-reference" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#eight" id="id5">[3]</a>
+in how they handled 8-bit passwords. The manner in which the flaw was fixed resulted
+in <em>crypt_blowfish</em> adding support for two new BCrypt hash identifiers:</p>
+<p><code class="docutils literal"><span class="pre">$2x$</span></code>, allowing sysadmins to mark any <code class="docutils literal"><span class="pre">$2a$</span></code> hashes which were potentially
+generated with the buggy algorithm. Passlib 1.6 recognizes (but does not
+currently support generating or verifying) these hashes.</p>
+<p><code class="docutils literal"><span class="pre">$2y$</span></code>, the default for crypt_blowfish 1.1-1.2, indicates
+the hash was generated with the canonical OpenBSD-compatible algorithm,
+and should match <em>correctly</em> generated <code class="docutils literal"><span class="pre">$2a$</span></code> hashes.
+Passlib 1.6 can generate and verify these hashes.</p>
+<p>As well, crypt_blowfish 1.2 modified the way it generates <code class="docutils literal"><span class="pre">$2a$</span></code> hashes,
+so that passwords containing the byte value 0xFF are hashed in a manner
+incompatible with either the buggy or canonical algorithms. Passlib
+does not support this algorithmic variant either, though it should
+be <em>very</em> rarely encountered in practice.</p>
+<p>(crypt_blowfish 1.3 switched to the <code class="docutils literal"><span class="pre">$2b$</span></code> standard as the default)</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 1.6.3: </span>Passlib will now throw a <a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html#passlib.exc.PasslibSecurityError" title="passlib.exc.PasslibSecurityError"><code class="xref py py-exc docutils literal"><span class="pre">PasslibSecurityError</span></code></a> if an attempt is
+made to use any backend which is vulnerable to this bug.</p>
+</div>
+</li>
+<li><p class="first">The ‘BSD wraparound’ bug</p>
+<p id="bsd-wraparound-bug">OpenBSD &lt;= 5.4, and most bcrypt libraries derived from it’s source,
+are vulnerable to a ‘wraparound’ bug <a class="footnote-reference" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#wraparound" id="id6">[4]</a>, where passwords larger
+than 254 characters will be incorrectly hashed using only the first few
+characters of the string, resulting in a severely weakened hash.</p>
+<p>OpenBSD 5.5 <a class="reference external" href="http://undeadly.org/cgi?action=article&amp;sid=20140224132743">fixed</a> this flaw,
+and introduced the <code class="docutils literal"><span class="pre">$2b$</span></code> hash identifier to indicate the hash was generated with the correct
+algorithm.</p>
+<p>py-bcrypt &lt;= 0.4 is known to be vulnerable to this, as well as the os_crypt
+backend (if running on a vulnerable operating system).</p>
+<p>Passlib 1.6.3 adds the following:</p>
+<ul class="simple">
+<li>Support for the <code class="docutils literal"><span class="pre">$2b$</span></code> hash format (though for backward compat it has not been made
+the default yet).</li>
+<li>Detects if the active backend is vulnerable to the bug, issues a warning,
+and enables a workaround so that vulnerable passwords will still be hashed correctly.
+(This does mean that existing hashes suffering this vulnerability will no longer verify
+using their correct password).</li>
+</ul>
+</li>
+</ul>
+<p class="rubric">Footnotes</p>
+<div class="wy-table-responsive"><table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#id3">[1]</a></td><td>the bcrypt format specification -
+<a class="reference external" href="http://www.usenix.org/event/usenix99/provos/provos_html/">http://www.usenix.org/event/usenix99/provos/provos_html/</a></td></tr>
+</tbody>
+</table></div>
+<div class="wy-table-responsive"><table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#id4">[2]</a></td><td>the OpenBSD BCrypt source -
+<a class="reference external" href="http://www.openbsd.org/cgi-bin/cvsweb/src/lib/libc/crypt/bcrypt.c">http://www.openbsd.org/cgi-bin/cvsweb/src/lib/libc/crypt/bcrypt.c</a></td></tr>
+</tbody>
+</table></div>
+<div class="wy-table-responsive"><table class="docutils footnote" frame="void" id="eight" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#id5">[3]</a></td><td>The flaw in pre-1.1 crypt_blowfish is described here -
+<a class="reference external" href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2483">CVE-2011-2483</a></td></tr>
+</tbody>
+</table></div>
+<div class="wy-table-responsive"><table class="docutils footnote" frame="void" id="wraparound" rules="none">
+<colgroup><col class="label"><col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#id6">[4]</a></td><td>The wraparound flaw is described here -
+<a class="reference external" href="http://www.openwall.com/lists/oss-security/2012/01/02/4">http://www.openwall.com/lists/oss-security/2012/01/02/4</a></td></tr>
+</tbody>
+</table></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation" style="position: fixed; margin-left: 0px; top: -13.7812px; left: 40px;">
+        <div class="sphinxsidebarwrapper">
+        <p class="logo"><a href="http://passlib.readthedocs.io/en/stable/index.html" title="index">
+          <img class="logo" src="./passlib.hash.bcrypt - BCrypt — Passlib v1.7.1 Documentation_files/masthead.png" alt="Logo">
+        </a></p>
+<div id="searchbox" style="" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="http://passlib.readthedocs.io/en/stable/search.html" method="get">
+      <div><input type="text" name="q"></div>
+      <div><input type="submit" value="Go"></div>
+      <input type="hidden" name="check_keywords" value="yes">
+      <input type="hidden" name="area" value="default">
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div class="sphinx-toc sphinxglobaltoc">
+<h3><a href="http://passlib.readthedocs.io/en/stable/contents.html">Table Of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/narr/index.html">Walkthrough &amp; Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.apache.html"><code class="docutils literal"><span class="pre">passlib.apache</span></code> - Apache Password Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.apps.html"><code class="docutils literal"><span class="pre">passlib.apps</span></code> - Helpers for various applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.context.html"><code class="docutils literal"><span class="pre">passlib.context</span></code> - CryptContext Hash Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.crypto.html"><code class="docutils literal"><span class="pre">passlib.crypto</span></code> - Cryptographic Helper Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.exc.html"><code class="docutils literal"><span class="pre">passlib.exc</span></code> - Exceptions and warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.ext.django.html"><code class="docutils literal"><span class="pre">passlib.ext.django</span></code> - Django Password Hashing Plugin</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html"><code class="docutils literal"><span class="pre">passlib.hash</span></code> - Password Hashing Schemes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#overview">Overview</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#unix-hashes">Unix Hashes</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#active-unix-hashes">Active Unix Hashes</a><ul class="current">
+<li class="toctree-l5 current local active focus"><a class="current reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#"><code class="docutils literal"><span class="pre">passlib.hash.bcrypt</span></code> - BCrypt</a><ul>
+<li class="toctree-l6 local"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#interface">Interface</a><ul>
+<li class="toctree-l7 local"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#index-0">Bcrypt Backends</a></li>
+</ul>
+</li>
+<li class="toctree-l6 local"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#format-algorithm">Format &amp; Algorithm</a></li>
+<li class="toctree-l6 local"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#security-issues">Security Issues</a></li>
+<li class="toctree-l6 local"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html#deviations">Deviations</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha256_crypt.html"><code class="docutils literal"><span class="pre">passlib.hash.sha256_crypt</span></code> - SHA-256 Crypt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha512_crypt.html"><code class="docutils literal"><span class="pre">passlib.hash.sha512_crypt</span></code> - SHA-512 Crypt</a></li>
+<li class="toctree-l5"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.unix_disabled.html"><code class="docutils literal"><span class="pre">passlib.hash.unix_disabled</span></code> - Unix Disabled Account Helper</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#deprecated-unix-hashes">Deprecated Unix Hashes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#archaic-unix-hashes">Archaic Unix Hashes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#other-modular-crypt-hashes">Other “Modular Crypt” Hashes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#ldap-rfc2307-hashes">LDAP / RFC2307 Hashes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#sql-database-hashes">SQL Database Hashes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#ms-windows-hashes">MS Windows Hashes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#cisco-hashes">Cisco Hashes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html#other-hashes">Other Hashes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.hosts.html"><code class="docutils literal"><span class="pre">passlib.hosts</span></code> - OS Password Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.ifc.html"><code class="docutils literal"><span class="pre">passlib.ifc</span></code> – Password Hash Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.pwd.html"><code class="docutils literal"><span class="pre">passlib.pwd</span></code> – Password generation helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.registry.html"><code class="docutils literal"><span class="pre">passlib.registry</span></code> - Password Handler Registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.totp.html"><code class="docutils literal"><span class="pre">passlib.totp</span></code> – TOTP / Two Factor Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/lib/passlib.utils.html"><code class="docutils literal"><span class="pre">passlib.utils</span></code> - Helper Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http://passlib.readthedocs.io/en/stable/other.html">Other Documentation</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group" style="position: fixed; margin-left: 0px; top: 0px; left: 40px;">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu" style="display: none;">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="http://passlib.readthedocs.io/en/stable/genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/py-modindex.html" title="Python Module Index">modules</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/contents.html" title="Table Of Contents">toc</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha256_crypt.html" title="passlib.hash.sha256_crypt - SHA-256 Crypt">next</a> &nbsp; &nbsp;</li>
+        <li class="right">
+          <a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html" title="passlib.hash - Password Hashing Schemes">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="http://passlib.readthedocs.io/en/stable/index.html">Passlib 1.7 Documentation</a> »</li>
+
+          <li class="nav-item nav-item-1"><a href="http://passlib.readthedocs.io/en/stable/lib/index.html">API Reference</a> »</li>
+          <li class="nav-item nav-item-2"><a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.html"><code class="docutils literal"><span class="pre">passlib.hash</span></code> - Password Hashing Schemes</a> »</li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        © <a href="http://passlib.readthedocs.io/en/stable/copyright.html">Copyright</a> 2008-2017, Assurance Technologies, LLC. Last Updated 2017-06-06.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  
+<div class="hide-for-small"></div><!-- Inserted RTD Footer -->
+<div class="injected">
+
+  
+  <div class="rst-versions rst-badge" data-toggle="rst-versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book">&nbsp;</span>
+      v: stable
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      
+
+      
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+        
+        <dd><a href="http://passlib.readthedocs.io/en/latest/lib/passlib.hash.bcrypt.html">latest</a></dd>
+        
+        
+         <strong> 
+        <dd><a href="http://passlib.readthedocs.io/en/stable/lib/passlib.hash.bcrypt.html">stable</a></dd>
+         </strong> 
+        
+        
+        <dd><a href="http://passlib.readthedocs.io/en/1.7.1/lib/passlib.hash.bcrypt.html">1.7.1</a></dd>
+        
+        
+        
+        <dd><a href="http://passlib.readthedocs.io/en/1.7.0/lib/passlib.hash.bcrypt.html">1.7.0</a></dd>
+        
+        
+        
+        <dd><a href="http://passlib.readthedocs.io/en/1.6.5/lib/passlib.hash.bcrypt.html">1.6.5</a></dd>
+        
+        
+      </dl>
+      
+      
+
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+        <dd><a href="http://readthedocs.org/projects/passlib/downloads/pdf/stable/">PDF</a></dd>
+        
+        <dd><a href="http://readthedocs.org/projects/passlib/downloads/htmlzip/stable/">HTML</a></dd>
+        
+      </dl>
+      
+      
+
+      
+      <dl>
+        <!-- These are kept as relative links for internal installs that are http -->
+        <dt>On Read the Docs</dt>
+        <dd>
+          <a href="http://readthedocs.org/projects/passlib/">Project Home</a>
+        </dd>
+        <dd>
+          <a href="http://readthedocs.org/projects/passlib/builds/">Builds</a>
+        </dd>
+        <dd>
+          <a href="http://readthedocs.org/projects/passlib/downloads/">Downloads</a>
+        </dd>
+      </dl>
+      
+
+      
+
+      
+      <dl>
+        <dt>On Bitbucket</dt>
+        <dd>
+          <a href="https://bitbucket.org/ecollins/passlib/src/stable/docs/lib/passlib.hash.bcrypt.rst">Edit</a>
+        </dd>
+      </dl>
+      
+      
+
+      
+      <dl>
+        <dt>Search</dt>
+        <dd>
+          <div style="padding: 6px;">
+            <form id="flyout-search-form" class="wy-form" target="_blank" action="http://readthedocs.org/projects/passlib/search/" method="get">
+              <input type="text" name="q" placeholder="Search docs">
+              </form>
+          </div>
+        </dd>
+      </dl>
+      
+
+
+
+      <hr>
+      
+      Free document hosting provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+      
+
+      
+    </div>
+  </div>
+  
+
+</div>
+</body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

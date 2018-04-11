@@ -1,0 +1,34 @@
+#updateLicenseBtn {
+    display: inline-block;
+    border: none;
+    height: auto;
+    cursor: pointer;
+    background-color: null;
+    padding: .375rem .75rem .375rem .75rem;
+    line-height: 1.25;
+    color: #464a4c;
+    vertical-align: middle;
+    -webkit-appearance: none;
+}
+
+#updateLicenseBtn:hover {
+    color: #fff;
+    background-color: #464a4c;
+}
+
+.dropdown-toggle:hover {
+    color: #fff;
+}
+
+#createUser.fade.show {
+
+    
+    
+}
+
+.fade {
+
+}
+
+
+

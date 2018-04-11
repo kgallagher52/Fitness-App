@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://helios.local/teams -->
+<html lang="en" class="wf-inactive gr__helios_local"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+
+        <title>Helios</title>
+
+        <!-- Styles -->
+        <link href="./Helios_files/bootstrap.min.css" rel="stylesheet">
+        <link href="./Helios_files/teams.css" rel="stylesheet">
+        <link href="./Helios_files/basic.css" rel="stylesheet">
+        <link href="./Helios_files/updateLicense.css" rel="stylesheet">
+
+
+
+        
+        <script src="./Helios_files/qcr5byd.js"></script>
+        <style type="text/css">.tk-effra{font-family:"effra",sans-serif;}</style><script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    </head>
+
+
+    <body data-gr-c-s-loaded="true" cz-shortcut-listen="true">
+
+        <!-- Dashboard Nav -->
+        <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+            <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="https://helios.local/home"> <img src="./Helios_files/helios-logo-sm.png" style="width: 80px; height: 40px;"> </a>
+
+            
+  
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Keaton
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://helios.local/profile">Profile</a>
+
+                            <a href="https://helios.local/logout" onclick="event.preventDefault(); document.getElementById(&#39;logout-form&#39;).submit();" style="color: black; text-decoration: none; display: block;">
+                                <li class="dropdown-item">
+                                        Logout
+
+                                    <form id="logout-form" action="https://helios.local/logout" method="POST" style="display: none;">
+                                        <input type="hidden" name="_token" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                                    </form>
+                                </li>
+                            </a>
+                        </div>
+
+                    </div>
+                </ul>
+
+                
+
+                <div class="form-inline mt-2 mt-md-0" style="padding-right:15px; ">
+
+                    <form method="POST" action="https://helios.local/globalSearch" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                        <input class="input-box-2" style="margin-bottom:0;" name="term" type="text">
+                        <input class="helios-button" type="submit" value="SEARCH">
+                    </form>
+
+                </div>
+
+                <div class="d-sm-none">
+                    <nav class="col-sm-2  bg-faded sidebar">
+            <ul class="nav nav-pills flex-column">
+
+                <li>
+                    <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/manage">MY LICENSES <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li>
+                    <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/companies">MY ORGANIZATIONS <span class="sr-only">(current)</span></a>
+                </li>
+
+
+
+                
+
+
+                    <li>
+                        <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/publishers">
+                            PUBLISHERS
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+
+
+                    
+                
+                
+                    <li>&nbsp;</li>
+
+                    <em> &nbsp;&nbsp;&nbsp;&nbsp;Selected Organization</em>
+
+                    <li>
+
+                        <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/companies/3">Custom Events <span class="sr-only">(current)</span></a>
+                    </li>
+
+
+                    <li>
+                        <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/manage/licenseByOrganizations/3">
+                            &nbsp;&nbsp;&nbsp;&nbsp;LICENSES
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/users">
+                            &nbsp;&nbsp;&nbsp;&nbsp;USERS
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+
+                
+
+            </ul>
+
+
+
+        </nav>
+
+                </div>
+
+                <form class="form-inline mt-2 mt-md-0" style="margin-bottom: 0px;">
+
+
+
+                    <a href="https://helios.local/logout" onclick="event.preventDefault(); document.getElementById(&#39;logout-form&#39;).submit();">
+                        <button class="helios-button">LOGOUT</button>
+                    </a>
+
+                </form>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Dashboard Nav END!!! -->
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-2  hidden-xs-down bg-faded sidebar">
+                    <ul class="nav nav-pills flex-column">
+
+                        <li>
+                            <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/manage">MY LICENSES <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li>
+                            <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/companies">MY ORGANIZATIONS <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        
+
+                        
+                            
+
+                            <li>
+                                <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/publishers">
+                                    PUBLISHERS
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+
+                        
+
+                            
+                        
+                        
+                            <li>&nbsp;</li>
+
+                            <em> &nbsp;&nbsp;&nbsp;&nbsp;Selected Organization</em>
+
+                            <li>
+
+                                <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/companies/3">Custom Events <span class="sr-only">(current)</span></a>
+                            </li>
+
+                            
+                            <li>
+                                <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/manage/licenseByOrganizations/3">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;LICENSES
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn btn-lg btn-hover-alt btn-primary " href="https://helios.local/users">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;USERS
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="btn btn-lg btn-hover-alt btn-primary active" href="https://helios.local/teams">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;TEAMS
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+
+                        
+                    </ul>
+                </nav>
+
+                <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
+
+                    <div class="inner-body-content">
+                        <section class="row text-center main-background">
+
+                            <div class="col-12 col-sm-12 main-background">
+                                
+    <div class="panel panel-default">
+        <div class="company-text">Teams<img src="./Helios_files/organization.svg" style="padding-left:10px; width: 4%;"> <!-- Button trigger modal -->
+<button type="button" class="blue-button" data-toggle="modal" data-target="#AddTeamModal">
+    <img src="./Helios_files/plus.png" style="padding-right:10px; padding-bottom: 2px; margin: 0px auto; width: 25px; ">TEAM
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="AddTeamModal" tabindex="-1" role="dialog" aria-labelledby="AddTeamModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title company-text-modal" id="AddTeamModalLabel">Add Team<img src="./Helios_files/user.png" style="padding-left:10px; "></h5>
+                <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-12">
+
+    <div class="panel panel-default">
+        <div class="panel-body inner-layout-modal">
+
+            <form method="POST" action="https://helios.local/teams/create" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+
+                <label for="lgFormGroupInput" class="col-sm-12 modal-text-2 align-left">Team Name</label>
+                <div class="col-sm-12 modal-text-2">
+                    <input class="form-control" name="name" type="text">
+                </div>
+
+                <div class="row" style="padding-left: 15px;">
+                    <div class="col-sm-4 top-bottom-padding ">
+                        <input class="btn btn-info form-control " style="" type="submit" value="ADD">
+                    </div>
+                    
+
+                    <div class="col-sm-3 top-bottom-padding">
+                        <a href="https://helios.local/teams" class="btn btn-info form-control">CANCEL</a>
+                    </div>
+
+            
+            </div></form>
+        </div>
+    </div>
+</div>            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+        <div class="panel-heading"> </div><br>
+    </div>
+    <div class="inner-layout col-xs-12">
+                    <div class="alert alert-warning">
+                User Yeah yeah updated successfully.
+            </div>
+        
+        
+                    <div class="table-responsive scrollbar-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-3">Team</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                                                  
+                                                    <tbody>
+                            <tr class="div_hover">
+                                <td class="text-left" style="min-width: 110px;">
+
+                                    <a data-toggle="collapse" data-target=".my-collapse-28" class="" aria-expanded="true">
+                                        <img src="./Helios_files/caret-down.png" style="width: 12px; padding-right:3px;">
+                                        Cheese Sticks
+
+                                    </a>
+                                </td>
+
+                                <td class="text-right ">
+                                        <strong><div class="text-right"><span class="edit-team-button" data-toggle="modal" data-target="#editTeamModel-28">Edit Team</span></div>
+
+<!-- Modal -->
+<div class="modal fade" id="editTeamModel-28" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            
+                <div class="modal-title company-text-modal">Update Cheese Sticks<img src="./Helios_files/user.png" style="padding-left:10px; "></div>
+                <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="https://helios.local/teams/update" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+    <input name="idTeam" type="hidden" value="28">
+    <div class="col-sm-12 modal-text-2 align-left">
+        <label for="name">Team Name</label>
+        <input class="form-control" name="name" type="text" value="Cheese Sticks" id="name">        
+    </div>
+    <div class="col-sm-12 modal-text-2 align-left">
+        <label for="user">Add User</label>
+     
+        <ul class="align-left" style="padding:0; list-style:none; color:#fff; cursor:pointer;">
+            <select class="form-control selected" style="height: 38px; cursor:pointer;" multiple="multiple" name="users[]" id="user">
+            <!-- <select class="form-control" multiple name="users"><option value="0">{&quot;idUserCompany&quot;:5,&quot;idUser&quot;:15,&quot;idCompany&quot;:3,&quot;isAdmin&quot;:0,&quot;id&quot;:15,&quot;name&quot;:&quot;Keaton&quot;,&quot;email&quot;:&quot;keatonrgallagher@gmail.com&quot;,&quot;password&quot;:&quot;$2y$10$lk7EODnh1mcvcgFsSbslOeo112URq84CfLKUmpJNrUaJ4YQGzn43e&quot;,&quot;adminLevel&quot;:1,&quot;verified&quot;:1,&quot;remember_token&quot;:null,&quot;created_at&quot;:&quot;2018-03-16 19:23:17&quot;,&quot;updated_at&quot;:&quot;2018-03-26 21:52:18&quot;}</option><option value="1">{&quot;idUserCompany&quot;:6,&quot;idUser&quot;:16,&quot;idCompany&quot;:3,&quot;isAdmin&quot;:0,&quot;id&quot;:16,&quot;name&quot;:&quot;Jeremy&quot;,&quot;email&quot;:&quot;test@test.com&quot;,&quot;password&quot;:&quot;0&quot;,&quot;adminLevel&quot;:5,&quot;verified&quot;:0,&quot;remember_token&quot;:null,&quot;created_at&quot;:&quot;2018-03-16 19:29:52&quot;,&quot;updated_at&quot;:&quot;2018-04-06 20:17:55&quot;}</option><option value="2">{&quot;idUserCompany&quot;:9,&quot;idUser&quot;:18,&quot;idCompany&quot;:3,&quot;isAdmin&quot;:0,&quot;id&quot;:18,&quot;name&quot;:&quot;Siri&quot;,&quot;email&quot;:&quot;siritali@gmail.com&quot;,&quot;password&quot;:&quot;0&quot;,&quot;adminLevel&quot;:5,&quot;verified&quot;:0,&quot;remember_token&quot;:null,&quot;created_at&quot;:&quot;2018-03-23 21:59:27&quot;,&quot;updated_at&quot;:&quot;2018-03-26 22:20:29&quot;}</option><option value="3">{&quot;idUserCompany&quot;:15,&quot;idUser&quot;:1,&quot;idCompany&quot;:3,&quot;isAdmin&quot;:0,&quot;id&quot;:1,&quot;name&quot;:&quot;Kyle&quot;,&quot;email&quot;:&quot;kyle@scitools.com&quot;,&quot;password&quot;:&quot;$2y$10$POSljS5b34mRlDpSBT.6.eQJT8pdWUtr7uKwHYES7fo3DbH3ebKXO&quot;,&quot;adminLevel&quot;:1,&quot;verified&quot;:1,&quot;remember_token&quot;:&quot;mIttVZbtncwPQRsig7gTEWneC7Pf6vyDv6YDfPY4iHhVKMT6MTGPa8d4JONd&quot;,&quot;created_at&quot;:&quot;2017-10-17 17:17:38&quot;,&quot;updated_at&quot;:&quot;2018-04-06 17:40:13&quot;}</option></select> -->
+            <option style="padding-bottom: 12px;" class="disabled" id="disabled" value="" disabled="" selected="">Select User</option>
+                                    <option style="overflow:hidden;" id="option" class="userOption Options" value="15">Keaton</option>
+                                    <option style="overflow:hidden;" id="option" class="userOption Options" value="16">Jeremy</option>
+                                    <option style="overflow:hidden;" id="option" class="userOption Options" value="18">Siri</option>
+                                    <option style="overflow:hidden;" id="option" class="userOption Options" value="1">Kyle</option>
+                 
+            </select>
+        </ul>
+    </div>
+    
+    <div class="row" style="padding-left: 14px;">
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <input class="subnavbutton btn" type="submit" value="UPDATE">
+        </div>
+
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <a href="https://helios.local/teams" class="btn btn-info form-control">CANCEL</a>
+        </div>
+
+
+        <div class="col-sm-2 top-bottom-padding-bg">
+            <form method="POST" action="https://helios.local/teams/delete" accept-charset="UTF-8" onsubmit="return confirmDelete( &quot;&quot; )"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                <input name="idTeam" type="hidden" value="28">
+                <input class="subnavbutton btn btn-danger" type="submit" value="DELETE ">
+            </form>
+        </div>
+    </div></form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div></strong>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="4">
+                                    <div class="out my-collapse-28 collapse show" style="">
+                                        <div class="row">
+                                                                                                                                                <div class="col-sm-10 text-left user-header-drop-down-text" style="overflow: none;">
+                                                            Keaton
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn">      
+                                                            <form method="POST" action="https://helios.local/teams/deleteUser" accept-charset="UTF-8" onsubmit="return confirmDelete( &quot;Keaton&quot; )"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                                                            <input name="id" type="hidden" value="15">
+                                                            <input class="edit-team-button" id="rm-btn" type="submit" value="Remove">
+                                                            </form>    
+                                                        </strong>
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn"><div class="text-right"><span class="edit-team-button" data-toggle="modal" data-target="#editTeamModel-15">Edit User</span></div>
+<!-- Modal -->
+<div class="modal fade" id="editTeamModel-15" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            
+                <div class="modal-title company-text-modal">Update Keaton<img src="./Helios_files/user.png" style="padding-left:10px; "></div>
+                <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="https://helios.local/teams/updateUser" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+    <input name="id" type="hidden" value="15">
+    <div class="col-sm-12 modal-text-2 align-left">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" type="text" value="Keaton" id="name">
+    </div>
+
+    <div class="col-sm-12 modal-text-2 align-left">
+        <ul class="align-left" style="padding:0; list-style:none; color:#fff; cursor:pointer;">
+        <div class="top-bottom-padding"><input checked="checked" name="isAdmin" type="checkbox" value="1"> Is user admin?</div>
+
+        </ul>
+      
+    </div>
+
+    
+    <div class="row" style="padding-left: 14px;">
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <input class="subnavbutton btn" type="submit" value="UPDATE">
+        </div>
+
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <a href="https://helios.local/teams" class="btn btn-info form-control">CANCEL</a>
+        </div>
+
+
+ </div></form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div></strong>
+                                                    </div>
+                                                    
+                                                                                                                                                                                                <div class="col-sm-10 text-left user-header-drop-down-text" style="overflow: none;">
+                                                            Jeremy
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn">      
+                                                            <form method="POST" action="https://helios.local/teams/deleteUser" accept-charset="UTF-8" onsubmit="return confirmDelete( &quot;Jeremy&quot; )"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                                                            <input name="id" type="hidden" value="16">
+                                                            <input class="edit-team-button" id="rm-btn" type="submit" value="Remove">
+                                                            </form>    
+                                                        </strong>
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn"><div class="text-right"><span class="edit-team-button" data-toggle="modal" data-target="#editTeamModel-16">Edit User</span></div>
+<!-- Modal -->
+<div class="modal fade" id="editTeamModel-16" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            
+                <div class="modal-title company-text-modal">Update Jeremy<img src="./Helios_files/user.png" style="padding-left:10px; "></div>
+                <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="https://helios.local/teams/updateUser" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+    <input name="id" type="hidden" value="16">
+    <div class="col-sm-12 modal-text-2 align-left">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" type="text" value="Jeremy" id="name">
+    </div>
+
+    <div class="col-sm-12 modal-text-2 align-left">
+        <ul class="align-left" style="padding:0; list-style:none; color:#fff; cursor:pointer;">
+        <div class="top-bottom-padding"><input checked="checked" name="isAdmin" type="checkbox" value="1"> Is user admin?</div>
+
+        </ul>
+      
+    </div>
+
+    
+    <div class="row" style="padding-left: 14px;">
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <input class="subnavbutton btn" type="submit" value="UPDATE">
+        </div>
+
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <a href="https://helios.local/teams" class="btn btn-info form-control">CANCEL</a>
+        </div>
+
+
+ </div></form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div></strong>
+                                                    </div>
+                                                    
+                                                                                                                                                                                                <div class="col-sm-10 text-left user-header-drop-down-text" style="overflow: none;">
+                                                            Kyle
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn">      
+                                                            <form method="POST" action="https://helios.local/teams/deleteUser" accept-charset="UTF-8" onsubmit="return confirmDelete( &quot;Kyle&quot; )"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+                                                            <input name="id" type="hidden" value="1">
+                                                            <input class="edit-team-button" id="rm-btn" type="submit" value="Remove">
+                                                            </form>    
+                                                        </strong>
+                                                    </div>
+                                                    <div class="text-right ">
+                                                        <strong class="teamBtn"><div class="text-right"><span class="edit-team-button" data-toggle="modal" data-target="#editTeamModel-1">Edit User</span></div>
+<!-- Modal -->
+<div class="modal fade" id="editTeamModel-1" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            
+                <div class="modal-title company-text-modal">Update Kyle<img src="./Helios_files/user.png" style="padding-left:10px; "></div>
+                <button type="button" class="close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="https://helios.local/teams/updateUser" accept-charset="UTF-8"><input name="_token" type="hidden" value="Ax5y7NTgfOgA96Rizzc0GdJRb9gNBL48FWwNJDMf">
+    <input name="id" type="hidden" value="1">
+    <div class="col-sm-12 modal-text-2 align-left">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" type="text" value="Kyle" id="name">
+    </div>
+
+    <div class="col-sm-12 modal-text-2 align-left">
+        <ul class="align-left" style="padding:0; list-style:none; color:#fff; cursor:pointer;">
+        <div class="top-bottom-padding"><input checked="checked" name="isAdmin" type="checkbox" value="1"> Is user admin?</div>
+
+        </ul>
+      
+    </div>
+
+    
+    <div class="row" style="padding-left: 14px;">
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <input class="subnavbutton btn" type="submit" value="UPDATE">
+        </div>
+
+        <div class="col-sm-3 top-bottom-padding-bg">
+            <a href="https://helios.local/teams" class="btn btn-info form-control">CANCEL</a>
+        </div>
+
+
+ </div></form>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div></strong>
+                                                    </div>
+                                                    
+                                                                                                                                    </div>
+                                    </div>
+                                </td>
+                            </tr>
+                                    
+                        </tbody>
+                    
+                              
+                 
+        
+
+                            
+
+
+                        
+                    
+                
+            
+        
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <!-- Scripts -->
+        <script src="./Helios_files/popper.min.js"></script>
+        
+        <script src="./Helios_files/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+        <script src="./Helios_files/popper.min(1).js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="./Helios_files/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+
+        <script src="./Helios_files/basic.js"></script>
+        <script src="./Helios_files/updateLicense.js"></script>
+
+
+    
+</table></div></div></div></section></div></main></div></div></body><span class="gr__tooltip"><span class="gr__tooltip-content"></span><i class="gr__tooltip-logo"></i><span class="gr__triangle"></span></span></html>

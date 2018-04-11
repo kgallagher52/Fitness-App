@@ -260,6 +260,6 @@ app.put('/users', function (req, res) {
 // DELETE____________________________________________________________
 
 // Commands to make server run in express
-    app.listen(app.get('port'), function() {
-        console.log("Server is listening...");
-    });
+app.listen(app.get('port'), function() {
+    console.log("Server is listening...");
+});

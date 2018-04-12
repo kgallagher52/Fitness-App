@@ -2,7 +2,7 @@
     <div>
         <nav class="navbar navbar-dark">
             <router-link style="text-decoration:none; color:inherit; width:50%;" to="/home"><h1 style="font-size:1.8rem;">All-N-All-Fitness</h1></router-link>
-            <h3 style="width: 8%;" class="navbar-header">{{ Page }}</h3>
+            <slot class=""></slot><h3 style="width: 8%;" class="navbar-header">{{ pageTitle }}</h3>
         </nav>
         <div class="container">
             <ul class="nav nav-tabs">
@@ -40,11 +40,21 @@
             
         <div>
 
-    <!-- <img src="/assets/icons/person.svg"> -->
 
         </div>
         <body>
-            <home-upload v-bind:currentUser="currentUser, Page"></home-upload>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4-l col-4-m col-4-s col-4-x">
+                        <home-upload v-bind:currentUser="currentUser, pageTitle"></home-upload>
+
+                    </div>
+                    <div id="messageFeed" class="col-7-l col-4-m col-4-s col-4-x">
+                        <message-feed v-bind:currentUser="currentUser, pageTitle"></message-feed>
+                    </div>
+                </div>
+
+            </div>
         </body>
     </div>
 </template>
@@ -52,6 +62,8 @@
 <script>
 import Global   from '../global.js';
 import upload   from '../components/homeUpload';
+import feed     from '../components/messageFeed';
+
 var collectUser = function(user, success, failure){
     return fetch(Global.path + '/session',{
         credentials: 'include',
@@ -68,8 +80,6 @@ var collectUser = function(user, success, failure){
         } else {
             failure();
         }
-    
-        
     });
 };
 
@@ -91,12 +101,13 @@ export default {
         dropdown: true,
         dropdown2: false,
         dropdownContainer: false,
-        Page: 'Home'
+        pageTitle: 'Home'
 
     }
   },
     components: {
-        'home-upload': upload 
+        'home-upload': upload, 
+        'message-feed': feed
 
     },
     methods: {
@@ -108,6 +119,11 @@ export default {
             console.log("Logged Out");
             signOut(this.currentUser,);
         },
+
+    },
+
+    beforeCreate() {
+        console.log("home.vue, lifecycle hook beforecreate");
 
     },
 
@@ -131,92 +147,100 @@ export default {
 
 </script>
 
-
 <style scoped>
 
-nav {
-    color: #fff;
-    display: flex;
-    background-color: #1d4776;
-    flex-direction: row;
-    width: 100%;
-    justify-content: space-between;
-    height: 92px;
-}
+    body {
+        background-color: #f4f3ee;
+        height: 100vh;
+        padding-top: 36px;
+    }
 
-nav div {
-    display: flex;
-    width: 24%;
-
-}
-
-nav img {
-    width: 20px;
-    height: 66px;
-}
-
-nav h1 {
-        padding-left: 5%;
-}
-
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-/* .btn {
-    width: 0;
-    height: 0;
-} */
+    #messageFeed {
+        background-color: #fff;
+        height: 150px;
+        padding: 0;
+        box-shadow: 0px 0px 1px 0px;        
+        }
 
 
-nav li:hover {
-    color: #000;
+    nav {
+        color: #fff;
+        display: flex;
+        background-color: #1d4776;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        height: 92px;
+    }
 
-}
+    nav div {
+        display: flex;
+        width: 24%;
 
-nav li {
-    top: 6%;
-    position: absolute;
-    padding: 20px;
-    z-index: 2;
-    cursor: pointer; 
+    }
 
-}
+    nav img {
+        width: 20px;
+        height: 66px;
+    }
 
-#down {
-    display: none;
-}
+    nav h1 {
+            padding-left: 5%;
+    }
 
-.settingsBtn {
-    right: 7%;
+    nav ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    /* .btn {
+        width: 0;
+        height: 0;
+    } */
+
+
+    nav li:hover {
+        color: #000;
+
+    }
+
+    nav li {
+        top: 6%;
+        position: absolute;
+        padding: 20px;
+        z-index: 2;
+        cursor: pointer; 
+
+    }
+
+    #down {
+        display: none;
+    }
+
+    .settingsBtn {
+        right: 7%;
+        
+    }
+
+    .signOutBtn {
+        right: 1%;
     
-}
+    }
 
-.signOutBtn {
-    right: 1%;
-  
-}
+    img.responsive {
+        width:100%;
+        height:auto;
+    }
 
-img.responsive {
-    width:100%;
-    height:auto;
-  }
 
-*, *::before, *::after {
-    box-sizing: border-box;
-}
 
-body {
-    background-color: #E8E7E4;
-    margin: 20px;
-}
 
-.wrapper {
-    margin: 0 auto;
-    padding: 34px;
 
-}
+    .wrapper {
+        margin: 0 auto;
+        padding: 34px;
+
+    }
 
 </style>

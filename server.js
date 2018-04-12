@@ -234,11 +234,14 @@ app.put('/users', function (req, res) {
             res.status(404).json("Couldn't Find User");
             
         } else { 
+
+                currentUser.profileImg = req.body.image;
+                currentUser.save().then(function () {
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(200).json(currentUser);
+                
                        
-        currentUser.profileImg = req.body.image;
-        currentUser.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
-            res.status(200).json(currentUser);
+
         }, function (err) {
             if (err.errors) {
                 var messages = {};

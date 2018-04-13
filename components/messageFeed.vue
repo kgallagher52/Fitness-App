@@ -50,8 +50,9 @@ export default {
         connectSocket() {
             console.log("socket hit");
             var user = this.currentUser;
+            var HOST = location.origin.replace(/^http/, this.socket)
 
-            this.socket = new WebSocket('ws://all-n-all-fitness.herokuapp.com');
+            this.socket = new WebSocket(HOST);
 
             this.socket.onopen = function (event) {
             console.log("socket onload fired...");

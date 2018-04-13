@@ -5,39 +5,44 @@
             <slot class=""></slot><h3 style="width: 8%;" class="navbar-header">{{ pageTitle }}</h3>
         </nav>
         <div class="container">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Home</router-link>
-                </li>
+            <div class="row">
+                <div class="col-12-l col-12-m col-12-s col-12-x">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Home</router-link>
+                        </li>
 
-                <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Clients</router-link>
-                </li>
+                        <li class="nav-item">
+                            <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Clients</router-link>
+                        </li>
 
-                <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Workouts</router-link>
-                </li>
+                        <li class="nav-item">
+                            <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Workouts</router-link>
+                        </li>
 
-                  <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Messages</router-link>
-                </li>
+                        <li class="nav-item">
+                            <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Messages</router-link>
+                        </li>
 
-                <li class="nav-item">
-                    <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Calendar</router-link>
-                </li>
+                        <li class="nav-item">
+                            <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Calendar</router-link>
+                        </li>
 
 
-                <li class="nav-item" style="position:absolute; right: 8%;">
-                    <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Hi, {{ currentUser.name }}</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <router-link style="text-decoration:none; color:inherit;" to="/settings"><li class="dropdown-item">Settings</li></router-link>
-                            <li class="dropdown-item" v-on:click="signOut">Sign Out</li>
+                        <li class="nav-item" style="position:absolute; right: 8%;">
+                            <a class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Hi, {{ currentUser.name }}</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <router-link style="text-decoration:none; color:inherit;" to="/settings"><li class="dropdown-item">Settings</li></router-link>
+                                    <li class="dropdown-item" v-on:click="signOut">Sign Out</li>
 
-                    </div>                       
-                </li>
-            </ul>
+                            </div>                       
+                        </li>
+                    </ul>
+                </div>
             </div>
-            
+        </div>
+
+                    
         <div>
 
 
@@ -45,11 +50,11 @@
         <body>
             <div class="container">
                 <div class="row">
-                    <div class="col-4-l col-4-m col-4-s col-4-x">
+                    <div class="col-4-l col-4-m col-12-s col-12-x">
                         <home-upload v-bind:currentUser="currentUser, pageTitle"></home-upload>
 
                     </div>
-                    <div id="messageFeed" class="col-7-l col-4-m col-4-s col-4-x">
+                    <div id="messageFeed" class="col-7-l col-4-m col-12-s col-12-x">
                         <message-feed v-bind:currentUser="currentUser, pageTitle"></message-feed>
                     </div>
                 </div>
@@ -153,6 +158,7 @@ export default {
         background-color: #f4f3ee;
         height: 100vh;
         padding-top: 36px;
+        overflow: scroll;
     }
 
     #messageFeed {

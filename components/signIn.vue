@@ -15,7 +15,7 @@
               <slot name="body">
                   <form style="display: inline-flex; padding-top:5%; flex-direction: row;">>
                       <div class="Form-Container-M">Email</br><input v-model="user.emails" style="width: 300px;" id="emailS" placeholder="Email" class="Form-Control-M" type="text"></input></div>
-                      <div class="Form-Container-M">Password </br><input v-model="user.pws" style="width: 300px;" id="pwS" class="Form-Control-M" placeholder="Password"type="password"></input></div>
+                      <div class="Form-Container-M">Password </br><input v-model="user.pws" v-on:keyup.enter="signIn" style="width: 300px;" id="pwS" class="Form-Control-M" placeholder="Password"type="password"></input></div>
                   </form>
               </slot>
             </div>

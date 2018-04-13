@@ -4,15 +4,15 @@
     <img v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image" alt="Cinque Terre">
 
     <input id="feedInput" v-model="newMessage" v-on:keyup.enter="messageFunction" placeholder='New thoughts....'>
-    <div class="bottom-border"><h6 v-on:click="messageFunction" class="btn">POST</h6></div>
+    <div class="bottom-border"><h6 v-on:click="messageFunction" v-if="newMessage.length > 5" class="btn animated zoomIn">POST</h6></div>
 
-    <div class="new-post-container">
-        <h6 style="text-align:left;">Message Feed</h6>
+    <div class="new-post-container" v-if="messages[0]">
+        <h6 class="post-wall-title" style="text-align:left;">Message Feed</h6>
         <div  v-for="message in messages">
             <div id="feed">
                 <div class="top-border2"></div>
-                <img v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image-2" alt="Cinque Terre">
-                <div class="new-post">{{ currentUser.name }} {{ message }} </div>
+                <img v-ref="image" v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image-2" alt="Cinque Terre">
+                <div v-ref="userName" class="new-post">{{ currentUser.name }} {{ message }} </div>
                 <div class="bottom-border2"></div>
             </div>
         </div>
@@ -23,6 +23,8 @@
 
 
 <script>
+import Global from '../global';
+
 
 export default {
         
@@ -35,6 +37,9 @@ export default {
             message: false,
             messages:[],
             newMessage: '',
+            User:[],
+            image: '',
+            userName: ''
 
         }
         
@@ -44,11 +49,13 @@ export default {
 
         connectSocket() {
             console.log("socket hit");
+            var user = this.currentUser;
+
             this.socket = new WebSocket('ws://localhost:5050');
-    
+
+
             this.socket.onopen = function (event) {
             console.log("socket onload fired...");
-            // this.socket.send("My")
             }
             //  socket is fetch in websocket land
             var tempThis = this.messages;
@@ -83,6 +90,8 @@ export default {
    created() {
         this.connectSocket();
    },
+
+
 }
 
 </script>
@@ -125,6 +134,10 @@ export default {
         transition: 0.3s linear;
     }
 
+    .post-wall-title {
+        border-bottom: black solid 0.5px;
+    }
+
     h6 {
         text-align: right;
         font-size: 13px;
@@ -146,9 +159,10 @@ export default {
     #feed {
         background-color: #fff;
         height: auto;
-        margin: 15px;
+        margin: 15px 0px;
         min-height: 110px;
         padding: 0;
+        width: 100%;
         margin-top: 19px;
         box-shadow: 0px 0px 1px 0px;
 

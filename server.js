@@ -280,7 +280,7 @@ app.put('/users', function (req, res) {
     };
 
     wss.on('connection', function(ws) {
-        console.log("client connected");
+        console.log("client connected", ws);
         wss.clients.upgradeReq;
 
         ws.on('message', function (data) {

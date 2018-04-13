@@ -41,7 +41,8 @@
             }   
         });    
     };
-    
+
+
 
     export default {
         props:[
@@ -103,7 +104,7 @@
 
 
         created: function () {
-        
+
             },
         }
     }

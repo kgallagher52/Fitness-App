@@ -280,14 +280,13 @@ app.put('/users', function (req, res) {
     };
 
     wss.on('connection', function(ws) {
-        console.log("client connected", ws);
+        console.log("client connected");
         wss.clients.upgradeReq;
 
         ws.on('message', function (data) {
             console.log("client sent messsage");
             // This is checking the client and when they send a messeage
             // brodcast the message
-            console.log(data);
 
             wss.clients.forEach(function (client) {
                 if (client !== ws && client.readyState === WebSocket.OPEN) {

@@ -51,8 +51,7 @@ export default {
             console.log("socket hit");
             var user = this.currentUser;
 
-            this.socket = new WebSocket('ws://localhost:5050');
-
+            this.socket = new WebSocket('ws://all-n-all-fitness.herokuapp.com');
 
             this.socket.onopen = function (event) {
             console.log("socket onload fired...");

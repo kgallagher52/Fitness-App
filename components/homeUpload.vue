@@ -1,8 +1,11 @@
 <template>
 
      <div id="upload">
-        <div id="" class="container" v-if="currentUser.profileImg">
-            <img :src="currentUser.profileImg" class="img-rounded" alt="Cinque Terre" width="304" height="236">
+        <div  class="container" v-if="currentUser.profileImg">
+            <img :src="currentUser.profileImg" id="profile-image" alt="Cinque Terre">
+            <input type="file" class="uploadImages" @change="onFileChange"></input>
+
+
         </div>
 
         <div v-else>
@@ -38,11 +41,12 @@
             }   
         });    
     };
-    
+
+
 
     export default {
         props:[
-            'currentUser', 'Page'
+            'currentUser', 'pageTitle'
             ],
         data() {
             return {
@@ -74,7 +78,7 @@
                 reader.onload = (e) => {
                     vm.newItem.photo = e.target.result;
                           postImage(vm.newItem.photo, this.currentUser, function () {
-                        console.log("Success");
+                            console.log("Success");
 
            
                     }, function () {
@@ -85,6 +89,7 @@
                 
                 reader.readAsDataURL(file);
           
+                window.location.href = Global.path2 + '/home';
 
                 },
 
@@ -99,7 +104,7 @@
 
 
         created: function () {
-        
+
             },
         }
     }
@@ -109,21 +114,22 @@
 
 <style scoped>
 
-#upload {
-    background-color: #fff;
+.uploadImages {
+    font-size: 11px;
+    float: left;
+    clear: left;
+
 }
 
-.profile-image {
-    width: 200px;
-}
+#profile-image {
+    float: left;
+    margin-bottom: 12px;
+    width: 304px; 
+    height:236px;
+    overflow: hidden;
+    box-shadow: 0px 0px 1px 0px;        
 
-#profileImage {
-    border: 1px solid;
-    padding: 12px;
-    box-shadow: 5px 10px #888888;
-    
-    margin: 36px;
-    padding: 0;
+
 }
 
 

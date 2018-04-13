@@ -12,6 +12,7 @@ var path            = require('path');
 var Global          = require('./global.js');
 var fs              = require('fs');
 var crypto          = require('crypto');
+var WebSocket       = require('ws');
 
 
 var app = express();
@@ -234,11 +235,14 @@ app.put('/users', function (req, res) {
             res.status(404).json("Couldn't Find User");
             
         } else { 
+
+                currentUser.profileImg = req.body.image;
+                currentUser.save().then(function () {
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(200).json(currentUser);
+                
                        
-        currentUser.profileImg = req.body.image;
-        currentUser.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
-            res.status(200).json(currentUser);
+
         }, function (err) {
             if (err.errors) {
                 var messages = {};
@@ -260,6 +264,36 @@ app.put('/users', function (req, res) {
 // DELETE____________________________________________________________
 
 // Commands to make server run in express
-app.listen(app.get('port'), function() {
-    console.log("Server is listening...");
+   var server = app.listen(app.get('port'), function() {
+        console.log("Server is listening...");
+
+    
+    var wss = new WebSocket.Server({ server: server });
+
+    // Brodcast all to all clients whenever I want
+    wss.brodcast = function brodcast(data) {
+        wss.clients.forEach(function each(client) {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(data);
+            }
+        });
+    };
+
+    wss.on('connection', function(ws) {
+        console.log("client connected", ws);
+        wss.clients.upgradeReq;
+
+        ws.on('message', function (data) {
+            console.log("client sent messsage");
+            // This is checking the client and when they send a messeage
+            // brodcast the message
+            console.log(data);
+
+            wss.clients.forEach(function (client) {
+                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                    client.send(data);
+                }
+            });
+        });
+    });
 });

@@ -18,7 +18,7 @@
                     <div class="Form-Container-M">Name<input v-model="newUser.name" id="name"  placeholder="Name" class="Form-Control-M" type="text"></div>
                     <div class="Form-Container-M">Email<input v-model="newUser.email" id="email" placeholder="Email" class="Form-Control-M" type="text"></div>
                     <div class="Form-Container-M">Password<input v-model="newUser.pw" id="pw" class="Form-Control-M" placeholder="Password" type="password"></div>
-                    <div class="Form-Container-M">Confirm password <input v-model="newUser.cpw" class="Form-Control-M" id="cpw" type="password"  placeholder="Confirm Password"></div>
+                    <div class="Form-Container-M">Confirm password <input v-model="newUser.cpw" v-on:keyup.enter="register" class="Form-Control-M" id="cpw" type="password"  placeholder="Confirm Password"></div>
                     <span v-if="userIsInvalid" style="color:#fff; padding-left: 7px; float:left; font-size:14px;">{{ errors.err2 }}</span></br> 
                 </form>
               </slot>

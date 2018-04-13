@@ -50,16 +50,16 @@ export default {
         connectSocket() {
             console.log("socket hit");
             var user = this.currentUser;
-            var HOST = location.origin.replace(/^http/, this.socket)
+            var ws = this.socket;
+            var HOST = location.origin.replace(/^http/, 'ws')
+            var ws = new WebSocket(HOST);
 
-            this.socket = new WebSocket(HOST);
-
-            this.socket.onopen = function (event) {
+            ws.onopen = function (event) {
             console.log("socket onload fired...");
             }
             //  socket is fetch in websocket land
             var tempThis = this.messages;
-            this.socket.onmessage = function (event) {
+            ws.onmessage = function (event) {
                 console.log("socket onmessage fired", event);
                 tempThis.push(event.data);
             }
@@ -67,7 +67,7 @@ export default {
         
         messageFunction() {
             var data = this.newMessage;
-            this.socket.send(data);
+            ws.send(data);
             for (var i = 0; i < this.messages.length; i++) {
                 if(this.messages[0] == this.newMessage) {
                     console.log("this message");

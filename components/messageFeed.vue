@@ -38,8 +38,8 @@ export default {
             messages:[],
             newMessage: '',
             User:[],
-            image: '',
-            userName: ''
+            socket: null,
+
 
         }
         
@@ -48,12 +48,30 @@ export default {
     methods: {
 
         connectSocket() {
+        // production
+            // this.socket = new WebSocket('ws://localhost:5050');
+
+            // console.log("socket hit");
+            // var user = this.currentUser;
+            // var ws = this.socket;
+            // var HOST = location.origin.replace(/^http/, 'ws')
+            // var ws = new WebSocket(HOST);
+
+            // ws.onopen = function (event) {
+            // console.log("socket onload fired...");
+            // }
+            // //  socket is fetch in websocket land
+            // var tempThis = this.messages;
+            // ws.onmessage = function (event) {
+            //     console.log("socket onmessage fired", event);
+            //     console.log(event.data);
+            //     tempThis.push(event.data);
+            // }
+        // Local
+
             console.log("socket hit");
             var user = this.currentUser;
-
             this.socket = new WebSocket('ws://localhost:5050');
-
-
             this.socket.onopen = function (event) {
             console.log("socket onload fired...");
             }
@@ -63,6 +81,7 @@ export default {
                 console.log("socket onmessage fired", event);
                 tempThis.push(event.data);
             }
+        
         },
         
         messageFunction() {

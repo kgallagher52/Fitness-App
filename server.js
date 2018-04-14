@@ -267,32 +267,30 @@ app.put('/users', function (req, res) {
    var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");
 
-    
-    var wss = new WebSocket.Server({ server: server });
+        var wss = new WebSocket.Server({ server: server });
 
-    // Brodcast all to all clients whenever I want
-    wss.brodcast = function brodcast(data) {
-        wss.clients.forEach(function each(client) {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        });
-    };
-
-    wss.on('connection', function(ws) {
-        console.log("client connected");
-        wss.clients.upgradeReq;
-
-        ws.on('message', function (data) {
-            console.log("client sent messsage");
-            // This is checking the client and when they send a messeage
-            // brodcast the message
-
-            wss.clients.forEach(function (client) {
-                if (client !== ws && client.readyState === WebSocket.OPEN) {
+        // Brodcast all to all clients whenever I want
+        wss.brodcast = function brodcast(data) {
+            wss.clients.forEach(function each(client) {
+                if (client.readyState === WebSocket.OPEN) {
                     client.send(data);
                 }
             });
+        };
+    
+        wss.on('connection', function(ws) {
+            console.log("client connected");
+            wss.clients.upgradeReq;
+    
+            ws.on('message', function (data) {
+                console.log("client sent messsage");
+                // This is checking the client and when they send a messeage
+                // brodcast the message    
+                wss.clients.forEach(function (client) {
+                    if (client !== ws && client.readyState === WebSocket.OPEN) {
+                        client.send(data);
+                    }
+                });
+            });
         });
     });
-});

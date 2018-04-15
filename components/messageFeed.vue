@@ -72,7 +72,7 @@ export default {
             var socket      = this.socket = new WebSocket('ws://all-n-all-fitness.herokuapp.com');
 
             // var HOST        = location.origin.replace(/^http/, 'ws')
-            var HOST        = location.origin.replace(/^https/, 'ws')
+            var HOST        = location.origin.replace(/^http/, 'ws')
 
             var httpSocket  = socket = new WebSocket(HOST);
          

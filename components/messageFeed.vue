@@ -68,9 +68,9 @@ export default {
             // }
         // Local
 
-            var socket      = this.socket = new WebSocket('ws://localhost:5050');
+            // var socket      = this.socket = new WebSocket('ws://localhost:5050');
             var HOST        = location.origin.replace(/^http/, 'ws')
-            var httpSocket  = socket = new WebSocket(HOST);
+            var httpSocket  = this.socket = new WebSocket(HOST);
          
 
             console.log("socket hit");

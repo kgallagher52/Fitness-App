@@ -13,7 +13,7 @@ module.exports = {
 // local 
   entry: './main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './'),
     publicPath: '/',
     filename: 'build.js'
   },

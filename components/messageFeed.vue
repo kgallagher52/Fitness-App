@@ -11,8 +11,7 @@
         <div  v-for="message in messages">
             <div id="feed">
                 <div class="top-border2"></div>
-                <img v-ref="image" v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image-2" alt="Cinque Terre">
-                <div v-ref="userName" class="new-post">{{ currentUser.name }} {{ message }} </div>
+                <div class="new-post"> {{ message }} </div>
                 <div class="bottom-border2"></div>
             </div>
         </div>
@@ -38,8 +37,8 @@ export default {
             messages:[],
             newMessage: '',
             User:[],
-            image: '',
-            userName: ''
+            socket: null,
+            newSocekt: null
 
         }
         
@@ -48,26 +47,60 @@ export default {
     methods: {
 
         connectSocket() {
+        // production
+            // this.socket = new WebSocket('ws://localhost:5050');
+
+            // console.log("socket hit");
+            // var user = this.currentUser;
+            // var ws = this.socket;
+            // var HOST = location.origin.replace(/^http/, 'ws')
+            // var ws = new WebSocket(HOST);
+
+            // ws.onopen = function (event) {
+            // console.log("socket onload fired...");
+            // }
+            // //  socket is fetch in websocket land
+            // var tempThis = this.messages;
+            // ws.onmessage = function (event) {
+            //     console.log("socket onmessage fired", event);
+            //     console.log(event.data);
+            //     tempThis.push(event.data);
+            // }
+        // Local
+
+            var socket      = this.socket = new WebSocket('ws://localhost:5050');
+            var HOST        = location.origin.replace(/^http/, 'ws')
+            var httpSocket  = socket = new WebSocket(HOST);
+         
+
             console.log("socket hit");
             var user = this.currentUser;
-            var ws = this.socket;
-            var HOST = location.origin.replace(/^http/, 'ws')
-            var ws = new WebSocket(HOST);
+            // this.socket = new WebSocket('ws://localhost:5050');
 
-            ws.onopen = function (event) {
-            console.log("socket onload fired...");
+            httpSocket.onopen = function (event) {
+            console.log("socket onload fired...", event.data);
+        
+
             }
             //  socket is fetch in websocket land
+           
+
             var tempThis = this.messages;
-            ws.onmessage = function (event) {
-                console.log("socket onmessage fired", event);
+            this.socket.onmessage = function (event) {
+                console.log("socket onmessage fired", event.data);
                 tempThis.push(event.data);
             }
+        
         },
         
         messageFunction() {
-            var data = this.newMessage;
-            ws.send(data);
+            var data    = this.newMessage;
+            var name    = this.currentUser.name;
+            var image   = this.currentUser.profileImg;
+            var id      = this.currentUser.id;
+           
+                
+            this.socket.send(name + " says: " + data);
             for (var i = 0; i < this.messages.length; i++) {
                 if(this.messages[0] == this.newMessage) {
                     console.log("this message");
@@ -86,9 +119,11 @@ export default {
         }
     
     },
-
    created() {
+       
         this.connectSocket();
+
+        
    },
 
 

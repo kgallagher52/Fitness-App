@@ -283,7 +283,7 @@ app.put('/users', function (req, res) {
             wss.clients.upgradeReq;
     
             ws.on('message', function (data) {
-                console.log("client sent messsage");
+                console.log("client sent messsage", data);
                 // This is checking the client and when they send a messeage
                 // brodcast the message    
                 wss.clients.forEach(function (client) {

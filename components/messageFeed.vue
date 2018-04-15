@@ -11,8 +11,7 @@
         <div  v-for="message in messages">
             <div id="feed">
                 <div class="top-border2"></div>
-                <img v-ref="image" v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image-2" alt="Cinque Terre">
-                <div v-ref="userName" class="new-post">{{ currentUser.name }} {{ message }} </div>
+                <div class="new-post"> {{ message }} </div>
                 <div class="bottom-border2"></div>
             </div>
         </div>
@@ -39,7 +38,7 @@ export default {
             newMessage: '',
             User:[],
             socket: null,
-
+            newSocekt: null
 
         }
         
@@ -69,24 +68,39 @@ export default {
             // }
         // Local
 
+            var socket      = this.socket = new WebSocket('ws://localhost:5050');
+            var HOST        = location.origin.replace(/^http/, 'ws')
+            var httpSocket  = socket = new WebSocket(HOST);
+         
+
             console.log("socket hit");
             var user = this.currentUser;
-            this.socket = new WebSocket('ws://localhost:5050');
-            this.socket.onopen = function (event) {
-            console.log("socket onload fired...");
+            // this.socket = new WebSocket('ws://localhost:5050');
+
+            httpSocket.onopen = function (event) {
+            console.log("socket onload fired...", event.data);
+        
+
             }
             //  socket is fetch in websocket land
+           
+
             var tempThis = this.messages;
             this.socket.onmessage = function (event) {
-                console.log("socket onmessage fired", event);
+                console.log("socket onmessage fired", event.data);
                 tempThis.push(event.data);
             }
         
         },
         
         messageFunction() {
-            var data = this.newMessage;
-            this.socket.send(data);
+            var data    = this.newMessage;
+            var name    = this.currentUser.name;
+            var image   = this.currentUser.profileImg;
+            var id      = this.currentUser.id;
+           
+                
+            this.socket.send(name + " says: " + data);
             for (var i = 0; i < this.messages.length; i++) {
                 if(this.messages[0] == this.newMessage) {
                     console.log("this message");
@@ -105,9 +119,11 @@ export default {
         }
     
     },
-
    created() {
+       
         this.connectSocket();
+
+        
    },
 
 

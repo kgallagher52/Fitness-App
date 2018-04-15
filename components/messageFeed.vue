@@ -68,8 +68,12 @@ export default {
             // }
         // Local
 
-            var socket      = this.socket = new WebSocket('ws://' + Global.path);
-            var HOST        = location.origin.replace(/^http/, 'ws')
+            // var socket      = this.socket = new WebSocket('ws://localhost:5050');
+            var socket      = this.socket = new WebSocket('ws://all-n-all-fitness.herokuapp.com');
+
+            // var HOST        = location.origin.replace(/^http/, 'ws')
+            var HOST        = location.origin.replace(/^https/, 'ws')
+
             var httpSocket  = socket = new WebSocket(HOST);
          
 

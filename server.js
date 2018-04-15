@@ -21,7 +21,7 @@ var app = express();
 // Using the middleware
 
 // For Local env
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // For Production
 app.use(serveStatic(__dirname + "/"));

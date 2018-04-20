@@ -1,17 +1,20 @@
 <template>
   <div id="messageFeed">
     <div class="top-border"></div>
-    <img v-if="currentUser.profileImg" :src="currentUser.profileImg" id="post-image" alt="Cinque Terre">
 
     <input id="feedInput" v-model="newMessage" v-on:keyup.enter="messageFunction" placeholder='New thoughts....'>
-    <div class="bottom-border"><h6 v-on:click="messageFunction" v-if="newMessage.length > 5" class="btn animated zoomIn">POST</h6></div>
+    <div class="bottom-border"><h6 v-on:click="messageFunction"  v-if="newMessage.length > 5" class="btn animated zoomIn">POST</h6></div>
 
     <div class="new-post-container" v-if="messages[0]">
         <h6 class="post-wall-title" style="text-align:left;">Message Feed</h6>
         <div  v-for="message in messages">
-            <div id="feed">
+            <div id="feed" v-for="singleMessage in message">
                 <div class="top-border2"></div>
-                <div class="new-post"> {{ message }} </div>
+                <div class="new-post"> 
+                    <img v-if="singleMessage.image" :src="singleMessage.image" id="post-image" alt="Cinque Terre">
+                    <span class="message">{{ singleMessage.name }}</span> Says: {{ singleMessage.message }}
+
+                </div>
                 <div class="bottom-border2"></div>
             </div>
         </div>
@@ -38,7 +41,8 @@ export default {
             newMessage: '',
             User:[],
             socket: null,
-            newSocekt: null
+            typeing: false,
+            timeout: null,
 
         }
         
@@ -46,71 +50,98 @@ export default {
 
     methods: {
 
+        // Implment later
+
         connectSocket() {
-        // production
-            // this.socket = new WebSocket('ws://localhost:5050');
-
-            // console.log("socket hit");
-            // var user = this.currentUser;
-            // var ws = this.socket;
-            // var HOST = location.origin.replace(/^http/, 'ws')
-            // var ws = new WebSocket(HOST);
-
-            // ws.onopen = function (event) {
-            // console.log("socket onload fired...");
-            // }
-            // //  socket is fetch in websocket land
-            // var tempThis = this.messages;
-            // ws.onmessage = function (event) {
-            //     console.log("socket onmessage fired", event);
-            //     console.log(event.data);
-            //     tempThis.push(event.data);
-            // }
+   
         // Local
 
             var socket      = this.socket = new WebSocket('ws://localhost:5050');
-            var HOST        = location.origin.replace(/^http/, 'ws')
-            var httpSocket  = socket = new WebSocket(HOST);
-         
-
-            console.log("socket hit");
-            var user = this.currentUser;
-            // this.socket = new WebSocket('ws://localhost:5050');
-
-            httpSocket.onopen = function (event) {
-            console.log("socket onload fired...", event.data);
+            // var HOST        = location.origin.replace(/^http/, 'ws')
+            // var httpSocket  = socket = new WebSocket(HOST);
         
+            var user = this.currentUser;
+            socket.onopen = function (event) {
 
             }
             //  socket is fetch in websocket land
-           
-
+    
             var tempThis = this.messages;
-            this.socket.onmessage = function (event) {
+            socket.onmessage = function (event) {
                 console.log("socket onmessage fired", event.data);
-                tempThis.push(event.data);
-            }
-        
-        },
-        
-        messageFunction() {
-            var data    = this.newMessage;
-            var name    = this.currentUser.name;
-            var image   = this.currentUser.profileImg;
-            var id      = this.currentUser.id;
-           
-                
-            this.socket.send(name + " says: " + data);
-            for (var i = 0; i < this.messages.length; i++) {
-                if(this.messages[0] == this.newMessage) {
-                    console.log("this message");
-                    delete this.messages;
-                    break;
+            function compare(a,b) {
+                if (a.data < b.data) {
+                    return -1;
                 }
+                if (a.data > b.data) {
+                    return 1;
+                }   
+                return 0;
             }
-            this.newMessage = '';
-        },
 
+            tempThis.push(event.data);
+            var check = tempThis.sort(compare);      
+            console.log(check);         
+
+            }
+            
+        
+        },
+            
+        messageFunction() {
+            var name    = this.currentUser.name;
+            var id      = this.currentUser.id;
+            var message = this.newMessage;
+            var image   = this.currentUser.profileImg;
+
+            var newThis = this;
+            var encodedString = 'name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id) + '&message=' + encodeURIComponent(message) + '&image=' + encodeURIComponent(image);
+            fetch(Global.path + '/messages', {
+                        body: encodedString,
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }).then(function (response) {
+                        console.log("Message Promise Complete");
+                        var status = response.status;
+                        if (status == 201) {
+                            console.log("messages Success");
+                            newThis.newMessage = '';
+                            newThis.getMssages();
+
+                        } else {
+                            console.log("messages Fail");
+                        }
+                        
+                    });    
+            },
+
+        getMssages() {
+            var tempThis = this.messages;
+            var THIS = this;
+            fetch(Global.path + '/messages',{
+                credentials: 'include',
+
+            }).then(function (response){
+                var status = response.status;
+                return response.json();
+            }).then(function (messages) {
+                if(messages) {
+                    console.log("successs", messages)
+                    tempThis.sort();
+                    tempThis.reverse();
+                    tempThis.push(messages);
+                  
+
+                } else {
+                    console.log("Fail")
+                }
+            });
+
+
+        },
+        
         posting() {
             this.message = true
         },
@@ -120,7 +151,7 @@ export default {
     
     },
    created() {
-       
+       this.getMssages();
         this.connectSocket();
 
         
@@ -218,7 +249,7 @@ export default {
     #post-image {
         border-radius: 50%;
         width: 40px;
-        margin-left: 24px;
+        margin-right: 12px;
     }
 
     #post-image-2 {

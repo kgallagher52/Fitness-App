@@ -14,6 +14,7 @@ var Global          = require('./global.js');
 var fs              = require('fs');
 var crypto          = require('crypto');
 var WebSocket       = require('ws');
+var date            = require('moment');
 
 
 var app = express();
@@ -237,11 +238,14 @@ app.post('/images', function (req, res) {
 // POST MESSAGES
 app.post('/messages', function (req, res) {
     console.log("Posting messages");
+    var newDate = new date().format('MMMM Do YYYY, h:mm a');
+
     var newMessage = new messageModel({
             name:       req.body.name,
             id:         req.body.id,
             message:    req.body.message,
-            image:      req.body.image
+            image:      req.body.image,
+            date:       newDate       
         }); 
         
         newMessage.save().then(function () {
@@ -293,7 +297,42 @@ app.put('/users', function (req, res) {
             } else {
                 res.sendStatus(500);
             }
-            console.log("User Created");
+            console.log("User Updated");
+
+        }); 
+        }
+    });
+});
+
+app.put('/messages', function (req, res) {
+    console.log("Posting Users");
+    messageModel.findOne({_id: req.body.postId}).then((post) => {
+        if(!post) {
+            // Already have the user
+            res.set("Access-Control-Allow-Origin", "*");
+            res.status(404).json("Couldn't Find User");
+            
+        } else { 
+
+                post.message = req.body.message;
+                currentUser.save().then(function () {
+                res.set("Access-Control-Allow-Origin", "*");
+                res.status(200).json(currentUser);
+                
+                       
+
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Post Updated");
 
         }); 
         }
@@ -301,7 +340,18 @@ app.put('/users', function (req, res) {
 });
   
 // DELETE____________________________________________________________
+app.delete('/messages/:postId', function(req, res) {
+    console.log("DELETE METHOD BEING CALLED");
+    messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
+        if(deleted){
+            res.status(200).json(deleted);
+        } else {
+            res.status(404).json(deleted);
 
+        }
+        
+    });
+});
 // Commands to make server run in express
    var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");

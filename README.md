@@ -32,7 +32,9 @@
 | Create        | POST          | /session             |
 | Create        | POST          | /messages/id         |
 | Upadate       | PUT           | /users/profileImg    |
+| Upadate       | PUT           | /messages/message    |
 | Delete        | DELETE        | /session             |
+| Delete        | DELETE        | /message/id          |
 | -------------:|:-------------:| --------------------:|
 
 # User-Schema

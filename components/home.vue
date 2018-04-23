@@ -163,7 +163,7 @@ export default {
 
     #messageFeed {
         background-color: #fff;
-        height: 150px;
+        height: 104px;
         padding: 0;
         box-shadow: 0px 0px 1px 0px;        
         }

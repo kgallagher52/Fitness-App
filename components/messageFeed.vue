@@ -8,17 +8,24 @@
         <h6 class="post-wall-title" style="text-align:left;">Message Feed</h6>
         <div  v-for="message in messages">
             <div id="feed" v-for="singleMessage in message">
-                <!-- <div class="top-border2"></div> -->
                 <div class="new-post"> 
                     <ul style="padding:0;">
                         <img v-if="singleMessage.image" :src="singleMessage.image" id="post-image" alt="Cinque Terre">
-                    
                         <li class="name">{{ singleMessage.name }}</li>
                         <li class="date">{{ singleMessage.date }}</li></br>
                         <li class="messsage" v-if="editingPost.postId != singleMessage._id">{{ singleMessage.message }}</li> 
-                        <li class="messsage" v-if="editingPost.postId == singleMessage._id"  ><input v-model="updatePost" placeholder="New Message"  v-on:keyup.enter="editPost(singleMessage)"></li> 
+                        <li class="messsage" v-if="editingPost.postId == singleMessage._id"><input v-model="updatePost" placeholder="New Message"  v-on:keyup.enter="editPost(singleMessage)"></li>
+                        <li class="messsage" v-if="editingPost.commentId == singleMessage._id"><input v-model="currentComment" placeholder="New comment"  v-on:keyup.enter="editPost(singleMessage)"></li>
                         <li class="editPost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="editPostInput(singleMessage)">edit</li>
                         <li class="deletePost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="deletePost(singleMessage._id)">delete</li>
+                        <li class="commentPost postBtns" v-if="singleMessage.id != currentUser.id" v-on:click="commentsFunction(singleMessage)">Comment</li>
+
+
+                    </ul>
+                    <ul class="comments" v-if="singleMessage.comments" v-for="comment in comments">
+                        <img v-if="comment.image" :src="comment.image" id="comment-image" alt="Cinque Terre">
+                        <li class="comment-name">{{ singleMessage.comments.name }}</li>
+                        <li class="comment-comment">{{ singleMessage.comments.comment }}</li>                        
 
                     </ul>
                     
@@ -45,6 +52,7 @@ export default {
         return {
             message: false,
             messages:[],
+            comments:[],
             newMessage: '',
             User:[],
             socket: null,
@@ -53,6 +61,7 @@ export default {
             postOwner: false,
             editingPost: {
                 postId: '',
+                commentId: ''
             }
         }
         
@@ -128,7 +137,9 @@ export default {
             },
 
         getMssages() {
+            var empty = [];
             var tempThis = this.messages;
+            tempThis.push(empty);
             var THIS = this;
             fetch(Global.path + '/messages',{
                 credentials: 'include',
@@ -140,9 +151,21 @@ export default {
                 if(messages) {
                     console.log("successs on messages")
                     THIS.editingPost.postId = '';
-                    tempThis.splice(messages, 1)
-                    messages.reverse();
-                    tempThis.push(messages);
+                    THIS.editingPost.commentId = '';
+                    // var TEST = JSON.parse(messages.comments);
+                    for (const key in messages) {
+                        if (messages.hasOwnProperty(key)) {
+                            var element = messages[key];                            
+                        }
+
+                    }
+          
+
+                tempThis.splice(messages, 1)
+                messages.reverse();
+                tempThis.push(messages);
+                THIS.comments.push(element);
+
                   
 
                 } else {
@@ -156,12 +179,24 @@ export default {
             console.log("working")
             this.editingPost.postId = post._id;
             
-            // this.editPost(post);
+        },
+
+
+        commentsFunction(post) {
+            console.log("working", post)
+            this.editingPost.commentId = post._id;
+            
         },
 
         editPost(post) {
+            console.log("Checking");
+            if(this.currentComment) {
+                var encodedString = 'comment=' + encodeURIComponent(this.currentComment) + '&postId=' + encodeURIComponent(post._id) + '&postImage=' + encodeURIComponent(this.currentUser.profileImg) + '&userId=' + encodeURIComponent(post.id) + '&name=' + encodeURIComponent(this.currentUser.name);
+            } else {
+                var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
+
+            }
             var tempThis = this;
-            var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
             fetch(Global.path +'/messages', {
                 body: encodedString,
                 method: 'PUT',
@@ -224,6 +259,7 @@ export default {
 
 
 <style scoped>
+
     ul {
         list-style-type: none;
     }
@@ -280,6 +316,32 @@ export default {
 
     .post-wall-title {
         border-bottom: black solid 0.5px;
+    }
+
+    .comments {
+        border-top: solid 1px gray;
+        padding: 10px;
+        background-color: rgba(177, 177, 177, 0.2)
+    }
+
+    .comments img{
+        width: 29px;
+        border-radius: 50%;
+        float: left;
+        margin-right: 12px;
+    }
+
+    .comment-name {
+        color: hsl(211,56%,29%);
+        font-size: 12px;
+        margin-left: 4px;
+        font-weight: 600;
+    }
+
+    .comment-comment {
+        font-size: 10px;
+        font-family: 'Lato', sans-serif;
+        margin-left: 5%;
     }
 
     h6 {

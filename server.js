@@ -306,13 +306,30 @@ app.put('/users', function (req, res) {
 
 app.put('/messages', function (req, res) {
     console.log("Posting Users");
+ 
     messageModel.findOne({_id: req.body.postId}).then((message) => {
         if(!message) {
             res.status(404).json("Couldn't Find post");
             
-        } else { 
+        } else {
+            
+            if(req.body.comment) {
+                console.log("Comment arrived", req.body.comment);
+                console.log("Test", message)
+                message.comments.comment    = req.body.comment;
+                message.comments.image      = req.body.postImage;
+                message.comments.userId     = req.body.userId;
+                message.comments.name       = req.body.name;
 
+
+
+            } else {
+                console.log("message", req.body.message);
                 message.message = req.body.message;
+
+
+            }
+
                 message.save().then(function () {
                 res.status(200).json(message);
 

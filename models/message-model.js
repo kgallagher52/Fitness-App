@@ -7,6 +7,13 @@ var messageSchema = new mongoose.Schema ({
         message: {type:String, required: [true, "Message Required"]},
         image: {type:String},
         date: {type:String},
+        comments: { 
+                comment:{type: String}, 
+                image: {type: String}, 
+                userId: {type: String},
+                name: {type: String},
+
+        }
 
    
     

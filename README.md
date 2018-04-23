@@ -10,6 +10,16 @@
 
 4. Confirm Password
 
+# Message
+
+1. name
+ 
+2. id
+
+3. message
+
+4. profileImg
+
 
 # API
 
@@ -17,15 +27,26 @@
 | -------------:|:-------------:| --------------------:|
 | Retrieve      | GET           | /users/email         |
 | Retrieve      | GET           | /session             |
+| Retrieve      | GET           | /messages            |
 | Create        | POST          | /users               |
 | Create        | POST          | /session             |
+| Create        | POST          | /messages/id         |
+| Upadate       | PUT           | /users/profileImg    |
+| Upadate       | PUT           | /messages/message    |
 | Delete        | DELETE        | /session             |
+| Delete        | DELETE        | /message/id          |
 | -------------:|:-------------:| --------------------:|
 
 # User-Schema
   name: String, 
   email: String, 
-  pw: String, 
+  pw: String,
+
+# Message-Schema
+  name: String, 
+  id: String, 
+  message: String, 
+  profileImg: String
 
 # Other Resources
 

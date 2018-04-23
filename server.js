@@ -3,6 +3,7 @@ var session         = require('express-session');
 var bodyParser      = require('body-parser');
 var userModel       = require('./models/user-model.js');
 var imageSchema     = require('./models/image-model.js');
+var messageModel    = require('./models/message-model.js');
 var keys            = require('./config/keys.js');
 var mongoose        = require('mongoose');
 var serveStatic     = require('serve-static');
@@ -13,6 +14,7 @@ var Global          = require('./global.js');
 var fs              = require('fs');
 var crypto          = require('crypto');
 var WebSocket       = require('ws');
+var date            = require('moment');
 
 
 var app = express();
@@ -23,7 +25,7 @@ var app = express();
 // For Local env
 // app.use(express.static('public'));
 
-// For Production
+// For Productions
 app.use(serveStatic(__dirname + "/"));
 
 app.use(session({secret: 'Proggressionoverperfection', resave: false, saveUninitialized: true })); 
@@ -144,11 +146,17 @@ app.delete('/session', function (req,res) {
     app.get('/images', function(req, res) {
             // Sending reguler response
             image.find().then(function (images) {
-                res.set("Access-Control-Allow-Origin", "*");
-                res.status(200).json(images);
-            
+                res.status(200).json(images);     
+        });
     });
-});
+
+    app.get('/messages', function(req, res) {
+        // Sending reguler response
+        messageModel.find().then(function (messages) {
+            res.status(200).json(messages);
+        
+        });
+    });
 
     app.get('/users/:email', function(req, res) {
         userModel.finda({email: req.params.email}).then((currentUser) => {
@@ -210,6 +218,8 @@ app.delete('/session', function (req,res) {
     });
 });
 
+
+//  post images
 app.post('/images', function (req, res) {
     
     var New = new imageSchema({
@@ -222,6 +232,39 @@ app.post('/images', function (req, res) {
             res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(New);
         });     
+});
+
+
+// POST MESSAGES
+app.post('/messages', function (req, res) {
+    console.log("Posting messages");
+    var newDate = new date().format('MMMM Do YYYY, h:mm a');
+
+    var newMessage = new messageModel({
+            name:       req.body.name,
+            id:         req.body.id,
+            message:    req.body.message,
+            image:      req.body.image,
+            date:       newDate       
+        }); 
+        
+        newMessage.save().then(function () {
+            res.set("Access-Control-Allow-Origin", "*");
+            res.status(201).json(newMessage);
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Message Created");
+
+    });
 });
 
 
@@ -254,7 +297,37 @@ app.put('/users', function (req, res) {
             } else {
                 res.sendStatus(500);
             }
-            console.log("User Created");
+            console.log("User Updated");
+
+        }); 
+        }
+    });
+});
+
+app.put('/messages', function (req, res) {
+    console.log("Posting Users");
+    messageModel.findOne({_id: req.body.postId}).then((message) => {
+        if(!message) {
+            res.status(404).json("Couldn't Find post");
+            
+        } else { 
+
+                message.message = req.body.message;
+                message.save().then(function () {
+                res.status(200).json(message);
+
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Post Updated");
 
         }); 
         }
@@ -262,37 +335,61 @@ app.put('/users', function (req, res) {
 });
   
 // DELETE____________________________________________________________
+app.delete('/messages/:postId', function(req, res) {
+    console.log("DELETE METHOD BEING CALLED");
+    messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
+        if(deleted){
+            res.status(200).json(deleted);
+        } else {
+            res.status(404).json(deleted);
 
+        }
+        
+    });
+});
 // Commands to make server run in express
    var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");
 
-    
-    var wss = new WebSocket.Server({ server: server });
+        var wss = new WebSocket.Server({ server: server });
 
-    // Brodcast all to all clients whenever I want
-    wss.brodcast = function brodcast(data) {
-        wss.clients.forEach(function each(client) {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        });
-    };
-
-    wss.on('connection', function(ws) {
-        console.log("client connected");
-        wss.clients.upgradeReq;
-
-        ws.on('message', function (data) {
-            console.log("client sent messsage");
-            // This is checking the client and when they send a messeage
-            // brodcast the message
-
-            wss.clients.forEach(function (client) {
-                if (client !== ws && client.readyState === WebSocket.OPEN) {
+        // Brodcast all to all clients whenever I want
+        wss.brodcast = function brodcast(data) {
+            wss.clients.forEach(function each(client) {
+                if (client.readyState === WebSocket.OPEN) {
                     client.send(data);
                 }
             });
+        };
+    
+        wss.on('connection', function(ws) {
+            wss.clients.upgradeReq;
+
+            ws.on('typing', function (data) {
+                wss.clients.forEach(function (client) {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(data);
+                    }
+                });
+                
+            }); 
+    
+            ws.on('message', function (data) {
+                // This is checking the client and when they send a messeage
+                // brodcast the message
+                //  Sending to only one client
+                 wss.clients.forEach(function (client) {
+                    if (client.readyState === WebSocket.OPEN) {
+                        client.send(data);
+                    }
+                });
+
+            // Function for only seeing incoming messages
+                // wss.clients.forEach(function (client) {
+                //     if (client !== ws && client.readyState === WebSocket.OPEN) {
+                //         client.send(data);
+                //     }
+                // });
+            });
         });
     });
-});

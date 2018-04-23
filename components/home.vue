@@ -50,11 +50,11 @@
         <body>
             <div class="container">
                 <div class="row">
-                    <div class="col-4-l col-4-m col-12-s col-12-x">
+                    <div class="col-5-l col-5-m col-12-s col-12-x">
                         <home-upload v-bind:currentUser="currentUser, pageTitle"></home-upload>
 
                     </div>
-                    <div id="messageFeed" class="col-7-l col-4-m col-12-s col-12-x">
+                    <div id="messageFeed" class="col-7-l col-7-m col-12-s col-12-x">
                         <message-feed v-bind:currentUser="currentUser, pageTitle"></message-feed>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ export default {
 
     #messageFeed {
         background-color: #fff;
-        height: 150px;
+        height: 104px;
         padding: 0;
         box-shadow: 0px 0px 1px 0px;        
         }

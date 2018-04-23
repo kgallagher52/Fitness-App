@@ -15,16 +15,14 @@
                     
                         <li class="name">{{ singleMessage.name }}</li>
                         <li class="date">{{ singleMessage.date }}</li></br>
-                        <li v-if="editingPost.postId != singleMessage._id" class="messsage">{{ singleMessage.message }}</li> 
-                        <li v-if="editingPost.postId == singleMessage._id"  class="messsage"><input v-model="updatePost" placeholder="New Message"  v-on:keyup.enter="editPost(singleMessage)"></li> 
-                        <li v-if="singleMessage.id == currentUser.id" v-on:click="editPostInput(singleMessage)" class="editPost postBtns">edit</li>
-                        <li v-if="singleMessage.id == currentUser.id" v-on:click="deletePost(singleMessage._id)" class="deletePost postBtns">delete</li>
-
+                        <li class="messsage" v-if="editingPost.postId != singleMessage._id">{{ singleMessage.message }}</li> 
+                        <li class="messsage" v-if="editingPost.postId == singleMessage._id"  ><input v-model="updatePost" placeholder="New Message"  v-on:keyup.enter="editPost(singleMessage)"></li> 
+                        <li class="editPost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="editPostInput(singleMessage)">edit</li>
+                        <li class="deletePost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="deletePost(singleMessage._id)">delete</li>
 
                     </ul>
                     
                 </div>
-                <!-- <div class="bottom-border2"></div> -->
             </div>
         </div>
     </div>
@@ -140,7 +138,8 @@ export default {
                 return response.json();
             }).then(function (messages) {
                 if(messages) {
-                    console.log("successs", messages)
+                    console.log("successs on messages")
+                    THIS.editingPost.postId = '';
                     tempThis.splice(messages, 1)
                     messages.reverse();
                     tempThis.push(messages);
@@ -157,28 +156,27 @@ export default {
             console.log("working")
             this.editingPost.postId = post._id;
             
-            this.editPost(post);
+            // this.editPost(post);
         },
 
         editPost(post) {
-        var tempThis = this;
-        var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
-        fetch(Global.path +'/messages', {
-            body: encodedString,
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-            }).then(function (response) {
-                console.log("Promise Complete");
-                var status = response.status;
+            var tempThis = this;
+            var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
+            fetch(Global.path +'/messages', {
+                body: encodedString,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+                }).then(function (response) {
+                    console.log("Promise Complete");
+                    var status = response.status;
 
-                    console.log("post", tempThis.updatePost)
+                
+                }).then(function () {
+                    tempThis.getMssages();
 
-             
-        });    
-
-
+                });
         },
 
         deletePost(postId) {
@@ -245,8 +243,8 @@ export default {
 
     .postBtns {
         float: right;
-        padding: 0 12px;
-        font-size: 12px;
+        padding: 0 3px;
+        font-size: 10px;
         cursor: pointer;
 
     }

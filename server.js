@@ -306,20 +306,15 @@ app.put('/users', function (req, res) {
 
 app.put('/messages', function (req, res) {
     console.log("Posting Users");
-    messageModel.findOne({_id: req.body.postId}).then((post) => {
-        if(!post) {
-            // Already have the user
-            res.set("Access-Control-Allow-Origin", "*");
-            res.status(404).json("Couldn't Find User");
+    messageModel.findOne({_id: req.body.postId}).then((message) => {
+        if(!message) {
+            res.status(404).json("Couldn't Find post");
             
         } else { 
 
-                post.message = req.body.message;
-                currentUser.save().then(function () {
-                res.set("Access-Control-Allow-Origin", "*");
-                res.status(200).json(currentUser);
-                
-                       
+                message.message = req.body.message;
+                message.save().then(function () {
+                res.status(200).json(message);
 
         }, function (err) {
             if (err.errors) {

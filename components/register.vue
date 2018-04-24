@@ -15,7 +15,7 @@
             <div class="modal-body-M">
               <slot name="body">
                 <form style="">
-                    <div class="Form-Container-M">Name<input v-model="newUser.name" id="name"  placeholder="Name" class="Form-Control-M" type="text"></div>
+                    <div class="Form-Container-M">Name<input v-model="newUser.name" @blur="errors.exist = false;" id="name"  placeholder="Name" class="Form-Control-M" type="text"></div>
                     <div class="Form-Container-M">Email<input v-model="newUser.email" id="email" placeholder="Email" class="Form-Control-M" type="text"></div>
                     <div class="Form-Container-M">Password<input v-model="newUser.pw" id="pw" class="Form-Control-M" placeholder="Password" type="password"></div>
                     <div class="Form-Container-M">Confirm password <input v-model="newUser.cpw" v-on:keyup.enter="register" class="Form-Control-M" id="cpw" type="password"  placeholder="Confirm Password"></div>
@@ -147,10 +147,13 @@ var createUser = function(newUser, success, failure) {
         this.newUser.cpw  
         var tempUser = this.newUser.email;
         var tempPw   = this.newUser.pw;
+        var THIS = this;
+
         createUser(this.newUser, function (newUser) {
               // success
               console.log("Success");
                 signingIn(tempUser,tempPw, function(user) {
+                  THIS.errors.err = '';
                   window.location.href = Global.path2 + '/home';
                 });
     
@@ -159,13 +162,14 @@ var createUser = function(newUser, success, failure) {
             }, function () {
                 // failure
                 console.log('fail');
+                THIS.errors.exist = true;
+
         });
         
           this.newUser.email = '';
           this.newUser.name = '';
           this.newUser.pw = '';
           this.newUser.cpw = '';
-          this.errors.exist = true;
           this.errors.errpw = '';
           this.errors.err2 = '';
         },

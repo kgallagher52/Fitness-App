@@ -11,11 +11,12 @@
                     <ul class="mainPost">
                         <img v-if="singleMessage.image" :src="singleMessage.image" id="post-image" alt="Cinque Terre">
                         <li class="name">{{ singleMessage.name }}</li>
-                        <li class="date">{{ singleMessage.date }}</li></br>
+                        <li class="date">{{ singleMessage.date }}</li><br>
                         <li class="messsage" v-if="editingPost.postId != singleMessage._id">{{ singleMessage.message }}</li> 
                         <li class="messsage" v-if="editingPost.postId == singleMessage._id"><input class="updateInputs" v-model="updatePost" placeholder="New Message..." v-on:blur="editingPost.postId = ''; updatePost = '';" v-on:keyup.enter="editPost(singleMessage)"></li>
                         <li class="messsage" v-if="editingPost.commentId == singleMessage._id"><input class="updateInputs" v-model="currentComment" placeholder="New comment..." v-on:blur="editingPost.commentId = ''; currentComment = '';" v-on:keyup.enter="postComments(singleMessage)"></li>
                         <li class="editPost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="editPostInput(singleMessage)">edit</li>
+
                         <li class="deletePost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="deletePost(singleMessage._id)">delete</li>
                         <li class="commentPost postBtns" v-if="singleMessage.id != currentUser.id" v-on:click="commentsFunction(singleMessage)">Comment</li>
                     </ul>
@@ -193,8 +194,17 @@ export default {
                     THIS.editingPost.commentId = '';
                     THIS.updateComment = '';
                     THIS.currentComment = '';
+                    messages.forEach(element => {
+
+                        
+                        console.log("new",element.date);
+
+            
+                    });
+
                     messages.reverse();
                     tempThis.push(messages);
+                
 
                 } else {
                     console.log("Fail")

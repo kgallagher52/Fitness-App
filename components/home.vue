@@ -226,11 +226,13 @@ export default {
 
     .settingsBtn {
         right: 7%;
+        cursor: pointer;
         
     }
 
     .signOutBtn {
         right: 1%;
+        cursor: pointer;
     
     }
 

@@ -154,6 +154,7 @@ app.delete('/session', function (req,res) {
     app.get('/messages', function(req, res) {
         // Sending reguler response
         messageModel.find().then(function (messages) {
+            messages.sort();
             res.status(200).json(messages);
         
         });
@@ -170,10 +171,8 @@ app.delete('/session', function (req,res) {
     app.get('/users/:email', function(req, res) {
         userModel.finda({email: req.params.email}).then((currentUser) => {
             if(currentUser){
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(200).json(currentUser);
             } else {
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(404).json(currentUser);
 
             }
@@ -191,7 +190,6 @@ app.delete('/session', function (req,res) {
         userModel.findOne({email: req.body.email}).then((currentUser) => {
             if(currentUser) {
                 // Already have the user
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(422).json("User Already Exists");
                 
             } else {
@@ -205,7 +203,6 @@ app.delete('/session', function (req,res) {
             newUser.setPassword(req.body.pw, function (password) {
 
             newUser.save().then(function () {
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(201).json(newUser);
             }, function (err) {
                 if (err.errors) {
@@ -313,15 +310,13 @@ app.put('/users', function (req, res) {
     userModel.findOne({_id: req.body.currentUser}).then((currentUser) => {
         if(!currentUser) {
             // Already have the user
-            res.set("Access-Control-Allow-Origin", "*");
             res.status(404).json("Couldn't Find User");
             
         } else { 
 
-                currentUser.profileImg = req.body.image;
-                currentUser.save().then(function () {
-                res.set("Access-Control-Allow-Origin", "*");
-                res.status(200).json(currentUser);
+            currentUser.profileImg = req.body.image;
+            currentUser.save().then(function () {
+            res.status(200).json(currentUser);
                 
                        
 
@@ -409,21 +404,11 @@ app.put('/comments', function (req, res) {
 // DELETE____________________________________________________________
 app.delete('/messages/:postId', function(req, res) {
     console.log("DELETE METHOD BEING CALLED");
-    var tempPostId = req.params.postId;
     messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
         if(deleted){
-            commentModel.find({postId: req.params.postId}).then((deleted) => {
-                if(deleted){
                     
-                    res.status(200).json(deleted);
-        
-                } else {
-                    res.status(200).json(deleted);
-        
-                }
-                
-            });
-     
+            res.status(200).json(deleted);
+
         } else {
             res.status(404).json(deleted);
 

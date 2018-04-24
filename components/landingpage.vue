@@ -170,7 +170,6 @@ body {
 }
 
 #section-2 img {
-    width: 246px;
     height: 246px;
     box-shadow: #000 0px 0px 4px;
     display: flex;

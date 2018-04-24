@@ -23,7 +23,7 @@
     var postImage = function(image, currentUser, success, failure) {
         var userId  = currentUser.id;
         var encodedString = 'image=' + encodeURIComponent(image) + '&currentUser=' + encodeURIComponent(userId);
-        fetch(Global.path +'/users', {
+        fetch(Global.path + '/users', {
             body: encodedString,
             method: 'PUT',
             headers: {
@@ -32,8 +32,10 @@
             }).then(function (response) {
                 console.log("Promise Complete");
                 var status = response.status;
+                location.reload();
 
                 if (status == 201) {
+
                     success();
 
                 } else {
@@ -80,32 +82,38 @@
                           postImage(vm.newItem.photo, this.currentUser, function () {
                             console.log("Success");
 
+
            
                     }, function () {
                         console.log("callback function")
                 
                     });
+                    location.reload();
+
                 };
                 
                 reader.readAsDataURL(file);
-          
-                window.location.href = Global.path2 + '/home';
+                location.reload();
 
                 },
 
             removeImage: function (e) {
                 this.newItem.photo = '';
+
             },
             
             removeEditImage: function (e) {
                 this.currentItem.photo = '';
+
             },
         
 
 
         created: function () {
 
+
             },
+   
         }
     }
 

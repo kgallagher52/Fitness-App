@@ -4,6 +4,7 @@ var bodyParser      = require('body-parser');
 var userModel       = require('./models/user-model.js');
 var imageSchema     = require('./models/image-model.js');
 var messageModel    = require('./models/message-model.js');
+var commentModel    = require('./models/comment-model.js');
 var keys            = require('./config/keys.js');
 var mongoose        = require('mongoose');
 var serveStatic     = require('serve-static');
@@ -158,6 +159,14 @@ app.delete('/session', function (req,res) {
         });
     });
 
+    app.get('/comments', function(req, res) {
+        // Sending reguler response
+        commentModel.find().then(function (comments) {
+            res.status(200).json(comments);
+        
+        });
+    });
+
     app.get('/users/:email', function(req, res) {
         userModel.finda({email: req.params.email}).then((currentUser) => {
             if(currentUser){
@@ -229,7 +238,6 @@ app.post('/images', function (req, res) {
         }); 
         
         New.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(New);
         });     
 });
@@ -249,8 +257,39 @@ app.post('/messages', function (req, res) {
         }); 
         
         newMessage.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(newMessage);
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Message Created");
+
+    });
+});
+
+app.post('/comments', function (req, res) {
+    console.log("Posting Comments");
+    var newDate = new date().format('MMMM Do YYYY, h:mm a');
+
+    var newComment = new commentModel({
+            name:       req.body.name,
+            postId:     req.body.postId,
+            userId:     req.body.userId,
+            comment:    req.body.comment,
+            image:      req.body.image,
+            date:       newDate
+
+        }); 
+        
+        newComment.save().then(function () {
+            res.status(201).json(newComment);
         }, function (err) {
             if (err.errors) {
                 var messages = {};
@@ -305,16 +344,17 @@ app.put('/users', function (req, res) {
 });
 
 app.put('/messages', function (req, res) {
-    console.log("Posting Users");
+    console.log("Posting message");
+ 
     messageModel.findOne({_id: req.body.postId}).then((message) => {
         if(!message) {
             res.status(404).json("Couldn't Find post");
             
-        } else { 
+        } else {
 
-                message.message = req.body.message;
-                message.save().then(function () {
-                res.status(200).json(message);
+            message.message = req.body.message;
+            message.save().then(function () {
+            res.status(200).json(message);
 
         }, function (err) {
             if (err.errors) {
@@ -333,13 +373,71 @@ app.put('/messages', function (req, res) {
         }
     });
 });
+
+
+app.put('/comments', function (req, res) {
+    console.log("Posting comments");
+ 
+    commentModel.findOne({_id: req.body.commentId}).then((comment) => {
+        if(!comment) {
+            res.status(404).json("Couldn't Find post");
+            
+        } else {
+
+            comment.comment = req.body.comment;
+            comment.save().then(function () {
+            res.status(200).json(comment);
+
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Comment Updated");
+
+        }); 
+        }
+    });
+});
   
 // DELETE____________________________________________________________
 app.delete('/messages/:postId', function(req, res) {
     console.log("DELETE METHOD BEING CALLED");
+    var tempPostId = req.params.postId;
     messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
         if(deleted){
+            commentModel.find({postId: req.params.postId}).then((deleted) => {
+                if(deleted){
+                    
+                    res.status(200).json(deleted);
+        
+                } else {
+                    res.status(200).json(deleted);
+        
+                }
+                
+            });
+     
+        } else {
+            res.status(404).json(deleted);
+
+        }
+        
+    });
+});
+
+app.delete('/comments/:commentId', function(req, res) {
+    console.log("DELETE METHOD BEING CALLED");
+    commentModel.findOneAndRemove({_id: req.params.commentId}).then((deleted) => {
+        if(deleted){
             res.status(200).json(deleted);
+
         } else {
             res.status(404).json(deleted);
 
@@ -348,41 +446,38 @@ app.delete('/messages/:postId', function(req, res) {
     });
 });
 // Commands to make server run in express
-   var server = app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");
 
         var wss = new WebSocket.Server({ server: server });
 
         // Brodcast all to all clients whenever I want
-        wss.brodcast = function brodcast(data) {
-            wss.clients.forEach(function each(client) {
-                if (client.readyState === WebSocket.OPEN) {
-                    client.send(data);
-                }
-            });
-        };
+        // wss.brodcast = function brodcast(data) {
+        //     wss.clients.forEach(function each(client) {
+        //         if (client.readyState === WebSocket.OPEN) {
+        //             client.send(data);
+        //         }
+        //     });
+        // };
     
         wss.on('connection', function(ws) {
             wss.clients.upgradeReq;
 
-            ws.on('typing', function (data) {
-                wss.clients.forEach(function (client) {
+            ws.on('message', function (data) {
+                var json = JSON.parse(data); 
+                if (json.action == "updatePage") {
+                    wss.clients.forEach(function (client) {
                     if (client.readyState === WebSocket.OPEN) {
                         client.send(data);
                     }
-                });
                 
-            }); 
-    
-            ws.on('message', function (data) {
+                });
+            };
+        
                 // This is checking the client and when they send a messeage
                 // brodcast the message
                 //  Sending to only one client
-                 wss.clients.forEach(function (client) {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(data);
-                    }
-                });
+            
 
             // Function for only seeing incoming messages
                 // wss.clients.forEach(function (client) {
@@ -390,6 +485,9 @@ app.delete('/messages/:postId', function(req, res) {
                 //         client.send(data);
                 //     }
                 // });
-            });
         });
     });
+<<<<<<< HEAD
+=======
+});
+>>>>>>> testing

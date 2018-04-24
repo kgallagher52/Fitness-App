@@ -7,12 +7,10 @@ var messageSchema = new mongoose.Schema ({
         message: {type:String, required: [true, "Message Required"]},
         image: {type:String},
         date: {type:String},
-
-   
     
 }); 
 
 
-var message = mongoose.model('message', messageSchema);
 
+var message = mongoose.model('message', messageSchema);
 module.exports = message;

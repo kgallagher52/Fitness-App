@@ -28,13 +28,17 @@
 | Retrieve      | GET           | /users/email         |
 | Retrieve      | GET           | /session             |
 | Retrieve      | GET           | /messages            |
+| Retrieve      | GET           | /comments            |
 | Create        | POST          | /users               |
 | Create        | POST          | /session             |
-| Create        | POST          | /messages/id         |
+| Create        | POST          | /messages            |
+| Create        | POST          | /comments            |
 | Upadate       | PUT           | /users/profileImg    |
 | Upadate       | PUT           | /messages/message    |
+| Upadate       | PUT           | /comments/commentId  |
 | Delete        | DELETE        | /session             |
 | Delete        | DELETE        | /message/id          |
+| Delete        | DELETE        | /comment/id          |
 | -------------:|:-------------:| --------------------:|
 
 # User-Schema
@@ -47,6 +51,15 @@
   id: String, 
   message: String, 
   profileImg: String
+  date: String,
+
+# Comment-Schema
+  name: String, 
+  postId: String, 
+  userId: String,
+  comment: String, 
+  image: String,
+  date: String
 
 # Other Resources
 

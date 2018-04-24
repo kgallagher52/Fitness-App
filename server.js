@@ -344,7 +344,7 @@ app.put('/users', function (req, res) {
 });
 
 app.put('/messages', function (req, res) {
-    console.log("Posting Users");
+    console.log("Posting message");
  
     messageModel.findOne({_id: req.body.postId}).then((message) => {
         if(!message) {
@@ -376,7 +376,7 @@ app.put('/messages', function (req, res) {
 
 
 app.put('/comments', function (req, res) {
-    console.log("Posting Users");
+    console.log("Posting comments");
  
     commentModel.findOne({_id: req.body.commentId}).then((comment) => {
         if(!comment) {
@@ -412,9 +412,9 @@ app.delete('/messages/:postId', function(req, res) {
     var tempPostId = req.params.postId;
     messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
         if(deleted){
-            console.log("deleted", deleted, "params", req.params.postId, "variable", tempPostId);
-            commentModel.findAllAndRemove({postId: req.params.postId}).then((deleted) => {
+            commentModel.find({postId: req.params.postId}).then((deleted) => {
                 if(deleted){
+                    
                     res.status(200).json(deleted);
         
                 } else {
@@ -446,41 +446,38 @@ app.delete('/comments/:commentId', function(req, res) {
     });
 });
 // Commands to make server run in express
-   var server = app.listen(app.get('port'), function() {
+var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");
 
         var wss = new WebSocket.Server({ server: server });
 
         // Brodcast all to all clients whenever I want
-        wss.brodcast = function brodcast(data) {
-            wss.clients.forEach(function each(client) {
-                if (client.readyState === WebSocket.OPEN) {
-                    client.send(data);
-                }
-            });
-        };
+        // wss.brodcast = function brodcast(data) {
+        //     wss.clients.forEach(function each(client) {
+        //         if (client.readyState === WebSocket.OPEN) {
+        //             client.send(data);
+        //         }
+        //     });
+        // };
     
         wss.on('connection', function(ws) {
             wss.clients.upgradeReq;
 
-            ws.on('typing', function (data) {
-                wss.clients.forEach(function (client) {
+            ws.on('message', function (data) {
+                var json = JSON.parse(data); 
+                if (json.action == "updatePage") {
+                    wss.clients.forEach(function (client) {
                     if (client.readyState === WebSocket.OPEN) {
                         client.send(data);
                     }
-                });
                 
-            }); 
-    
-            ws.on('message', function (data) {
+                });
+            };
+        
                 // This is checking the client and when they send a messeage
                 // brodcast the message
                 //  Sending to only one client
-                 wss.clients.forEach(function (client) {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(data);
-                    }
-                });
+            
 
             // Function for only seeing incoming messages
                 // wss.clients.forEach(function (client) {
@@ -488,6 +485,6 @@ app.delete('/comments/:commentId', function(req, res) {
                 //         client.send(data);
                 //     }
                 // });
-            });
         });
     });
+});

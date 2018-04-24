@@ -78,10 +78,20 @@ export default {
     methods: {
 
         // Implment later
+        update() {
+            this.socket.send(JSON.stringify ({
+                action: "updatePage", 
+                comment: "updating",
+                sendingUser: this.currentUser.id,
+        
+            }));
+
+        },
 
         connectSocket() {
    
         // Local
+        console.log("socket hit")
 
             var socket      = this.socket = new WebSocket('ws://localhost:5050');
             // var HOST        = location.origin.replace(/^http/, 'ws')
@@ -93,26 +103,15 @@ export default {
             }
             //  socket is fetch in websocket land
     
-            var tempThis = this.messages;
+            var tempThis = this;
             socket.onmessage = function (event) {
-                console.log("socket onmessage fired", event.data);
-            function compare(a,b) {
-                if (a.data < b.data) {
-                    return -1;
+                var incomingData = JSON.parse(event.data);
+                console.log(incomingData);
+                if (incomingData.action === "updatePage") {
+                        tempThis.getMssages();
+                
                 }
-                if (a.data > b.data) {
-                    return 1;
-                }   
-                return 0;
             }
-
-            tempThis.push(event.data);
-            var check = tempThis.sort(compare);      
-            console.log(check);         
-
-            }
-            
-        
         },
             
         messageFunction() {
@@ -121,7 +120,7 @@ export default {
             var message = this.newMessage;
             var image   = this.currentUser.profileImg;
 
-            var newThis = this;
+            var THIS = this;
             var encodedString = 'name=' + encodeURIComponent(name) + '&id=' + encodeURIComponent(id) + '&message=' + encodeURIComponent(message) + '&image=' + encodeURIComponent(image);
             fetch(Global.path + '/messages', {
                         body: encodedString,
@@ -134,12 +133,12 @@ export default {
                         var status = response.status;
                         if (status == 201) {
                             console.log("messages Success");
-                            newThis.newMessage = '';
-                            newThis.getMssages();
-
+                            THIS.newMessage = '';
+                            THIS.update();
                         } else {
                             console.log("messages Fail");
                         }
+
                         
                     });    
             },
@@ -152,7 +151,7 @@ export default {
         var comment = this.currentComment;
         var image   = this.currentUser.profileImg;
 
-        var newThis = this;
+        var THIS = this;
         var encodedString = 'name=' + encodeURIComponent(name) + '&postId=' + encodeURIComponent(postId) + '&userId=' + encodeURIComponent(userId) + '&comment=' + encodeURIComponent(comment) + '&image=' + encodeURIComponent(image);
         fetch(Global.path + '/comments', {
                     body: encodedString,
@@ -165,8 +164,8 @@ export default {
                     var status = response.status;
                     if (status == 201) {
                         console.log("messages Success");
-                        newThis.newComment = '';
-                        newThis.getMssages();
+                        THIS.newComment = '';
+                        THIS.update();
 
                     } else {
                         console.log("messages Fail");
@@ -231,6 +230,7 @@ export default {
                 } else {
                     console.log("Fail")
                 }
+        
             
             });
         },
@@ -253,10 +253,12 @@ export default {
 
         },
 
+// PUTS ____________
+
         editPost(post) {
             console.log("Checking");
             var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
-            var tempThis = this;
+            var THIS = this;
             fetch(Global.path +'/messages', {
                 body: encodedString,
                 method: 'PUT',
@@ -269,8 +271,8 @@ export default {
 
                 
                 }).then(function () {
-                    tempThis.updatePost = '';
-                    tempThis.getMssages();
+                    THIS.updatePost = '';
+                    THIS.update();
 
                 });
         },
@@ -279,7 +281,7 @@ export default {
             
             console.log("Checking");
             var encodedString = 'comment=' + encodeURIComponent(this.updateComment) + '&commentId=' + encodeURIComponent(comment._id) + '&postImage=' + encodeURIComponent(this.currentUser.profileImg) + '&userId=' + encodeURIComponent(comment.userId) + '&name=' + encodeURIComponent(this.currentUser.name);
-            var tempThis = this;
+            var THIS = this;
             fetch(Global.path +'/comments', {
                 body: encodedString,
                 method: 'PUT',
@@ -289,19 +291,19 @@ export default {
                 }).then(function (response) {
                     console.log("Promise Complete");
                     var status = response.status;
-                    tempThis.getMssages();
+                    THIS.update();
                 
                 }).then(function () {
                 
 
                 });
         },
-
+// DELETES__________________________________
         deletePost(postId) {
             var result = confirm("Are you sure you want to delete this post?");
             if (result) {
 
-                var tempThis = this;
+                var THIS = this;
                 fetch(Global.path +'/messages/'+ postId, {
                 method: 'DELETE',
                 headers: {
@@ -313,7 +315,7 @@ export default {
                     console.log("Promise Complete");
                     
                     var status = response.status;
-                    tempThis.getMssages();
+                    THIS.update();
 
             });    
 
@@ -324,7 +326,7 @@ export default {
             var result = confirm("Are you sure you want to delete this comment?");
             if (result) {
 
-                var tempThis = this;
+                var THIS = this;
                 fetch(Global.path +'/comments/'+ commentId, {
                 method: 'DELETE',
                 headers: {
@@ -334,7 +336,7 @@ export default {
                 
                 }).then(function (response) {
                     console.log("Promise Complete");
-                    tempThis.getMssages();
+                    THIS.update();
 
 
             });    
@@ -346,8 +348,8 @@ export default {
     
     },
    created() {
-        this.getMssages();
         this.connectSocket();
+        this.getMssages();
 
         
    },

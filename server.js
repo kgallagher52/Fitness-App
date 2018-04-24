@@ -487,7 +487,4 @@ var server = app.listen(app.get('port'), function() {
                 // });
         });
     });
-<<<<<<< HEAD
-=======
 });
->>>>>>> testing

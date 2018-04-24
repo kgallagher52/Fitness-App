@@ -5,30 +5,35 @@
     <input id="feedInput" v-model="newMessage" v-on:keyup.enter="messageFunction" placeholder='New thoughts....'>
     <div class="bottom-border"><h6 v-on:click="messageFunction"  v-if="newMessage.length > 5" class="btn animated zoomIn">POST</h6></div>
     <div class="new-post-container" v-if="messages[0]">
-        <h6 class="post-wall-title" style="text-align:left;">Message Feed</h6>
         <div  v-for="message in messages">
             <div id="feed" v-for="singleMessage in message">
                 <div class="new-post"> 
-                    <ul style="padding:0;">
+                    <ul class="mainPost">
                         <img v-if="singleMessage.image" :src="singleMessage.image" id="post-image" alt="Cinque Terre">
                         <li class="name">{{ singleMessage.name }}</li>
                         <li class="date">{{ singleMessage.date }}</li></br>
                         <li class="messsage" v-if="editingPost.postId != singleMessage._id">{{ singleMessage.message }}</li> 
-                        <li class="messsage" v-if="editingPost.postId == singleMessage._id"><input v-model="updatePost" placeholder="New Message"  v-on:keyup.enter="editPost(singleMessage)"></li>
-                        <li class="messsage" v-if="editingPost.commentId == singleMessage._id"><input v-model="currentComment" placeholder="New comment"  v-on:keyup.enter="editPost(singleMessage)"></li>
+                        <li class="messsage" v-if="editingPost.postId == singleMessage._id"><input class="updateInputs" v-model="updatePost" placeholder="New Message..." v-on:blur="editingPost.postId = ''; updatePost = '';" v-on:keyup.enter="editPost(singleMessage)"></li>
+                        <li class="messsage" v-if="editingPost.commentId == singleMessage._id"><input class="updateInputs" v-model="currentComment" placeholder="New comment..." v-on:blur="editingPost.commentId = ''; currentComment = '';" v-on:keyup.enter="postComments(singleMessage)"></li>
                         <li class="editPost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="editPostInput(singleMessage)">edit</li>
                         <li class="deletePost postBtns" v-if="singleMessage.id == currentUser.id" v-on:click="deletePost(singleMessage._id)">delete</li>
                         <li class="commentPost postBtns" v-if="singleMessage.id != currentUser.id" v-on:click="commentsFunction(singleMessage)">Comment</li>
-
-
-                    </ul>
-                    <ul class="comments" v-if="singleMessage.comments" v-for="comment in comments">
-                        <img v-if="comment.image" :src="comment.image" id="comment-image" alt="Cinque Terre">
-                        <li class="comment-name">{{ singleMessage.comments.name }}</li>
-                        <li class="comment-comment">{{ singleMessage.comments.comment }}</li>                        
-
                     </ul>
                     
+                    <div class="comments-container" v-for="allComments in comments">
+                        <ul class="comments"  style="margin-bottom:10%;" v-if="singleMessage._id == comment.postId" v-for="comment in allComments">
+                            <img v-if="comment.image" :src="comment.image"  alt="Cinque Terre">
+                            <li class="comment-name">
+                                {{ comment.name }}
+                                <span class="comment-comment">{{ comment.comment }}</span></br>
+                                <span class="editPost postBtns"  v-if="comment.userId == currentUser.id" v-on:click="toggleUpdate(comment)">edit</span>
+                                <span class="deletePost postBtns"  v-if="comment.userId == currentUser.id" v-on:click="deleteComment(comment._id)">delete</span>
+                                <span class="messsage" v-if="updatingComment == comment._id"><input class="updateInputs" v-model="updateComment" placeholder="Update comment..."  v-on:blur="updatingComment = ''; updateComment = '';" v-on:keyup.enter="editComment(comment)"></span>
+
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +55,6 @@ export default {
         
     data() {
         return {
-            message: false,
             messages:[],
             comments:[],
             newMessage: '',
@@ -62,7 +66,11 @@ export default {
             editingPost: {
                 postId: '',
                 commentId: ''
-            }
+            },
+            updatePost: '',
+            currentComment: '',
+            updatingComment: '',
+            updateComment: '',
         }
         
     },
@@ -136,11 +144,46 @@ export default {
                     });    
             },
 
+
+    postComments(data) {
+        var name    = this.currentUser.name;
+        var postId  = data._id;
+        var userId  = this.currentUser.id;
+        var comment = this.currentComment;
+        var image   = this.currentUser.profileImg;
+
+        var newThis = this;
+        var encodedString = 'name=' + encodeURIComponent(name) + '&postId=' + encodeURIComponent(postId) + '&userId=' + encodeURIComponent(userId) + '&comment=' + encodeURIComponent(comment) + '&image=' + encodeURIComponent(image);
+        fetch(Global.path + '/comments', {
+                    body: encodedString,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).then(function (response) {
+                    console.log("Comments Promise Complete");
+                    var status = response.status;
+                    if (status == 201) {
+                        console.log("messages Success");
+                        newThis.newComment = '';
+                        newThis.getMssages();
+
+                    } else {
+                        console.log("messages Fail");
+                    }
+                    
+                });    
+            },
+
         getMssages() {
             var empty = [];
+            var empty2 = [];
+            this.messages = []
             var tempThis = this.messages;
-            tempThis.push(empty);
+            // tempThis.push(empty)
             var THIS = this;
+            // THIS.comments.push(empty2);
+
             fetch(Global.path + '/messages',{
                 credentials: 'include',
 
@@ -152,29 +195,46 @@ export default {
                     console.log("successs on messages")
                     THIS.editingPost.postId = '';
                     THIS.editingPost.commentId = '';
-                    // var TEST = JSON.parse(messages.comments);
-                    for (const key in messages) {
-                        if (messages.hasOwnProperty(key)) {
-                            var element = messages[key];                            
-                        }
-
-                    }
-          
-
-                tempThis.splice(messages, 1)
-                messages.reverse();
-                tempThis.push(messages);
-                THIS.comments.push(element);
-
-                  
+                    THIS.updateComment = '';
+                    THIS.currentComment = '';
+                    messages.reverse();
+                    tempThis.push(messages);
 
                 } else {
                     console.log("Fail")
                 }
+                THIS.getComments();
+                
             });
-
-
         },
+
+
+        getComments() {
+            var tempThis = this.comments;            
+            var THIS = this;
+            fetch(Global.path + '/comments',{
+                credentials: 'include',
+
+            }).then(function (response){
+                var status = response.status;
+                return response.json();
+            }).then(function (comments) {
+                if(comments) {
+                    console.log("successs on comments")
+                    THIS.editingPost.postId = '';
+                    THIS.editingPost.commentId = '';
+                    THIS.updatingComment = '';
+                    tempThis.splice(comments, 1)
+                    comments.reverse();
+                    tempThis.push(comments);
+
+                } else {
+                    console.log("Fail")
+                }
+            
+            });
+        },
+        
         editPostInput(post) {
             console.log("working")
             this.editingPost.postId = post._id;
@@ -183,19 +243,19 @@ export default {
 
 
         commentsFunction(post) {
-            console.log("working", post)
+            console.log("working")
             this.editingPost.commentId = post._id;
             
         },
 
+        toggleUpdate(comment) {
+            this.updatingComment = comment._id;
+
+        },
+
         editPost(post) {
             console.log("Checking");
-            if(this.currentComment) {
-                var encodedString = 'comment=' + encodeURIComponent(this.currentComment) + '&postId=' + encodeURIComponent(post._id) + '&postImage=' + encodeURIComponent(this.currentUser.profileImg) + '&userId=' + encodeURIComponent(post.id) + '&name=' + encodeURIComponent(this.currentUser.name);
-            } else {
-                var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
-
-            }
+            var encodedString = 'message=' + encodeURIComponent(this.updatePost) + '&postId=' + encodeURIComponent(post._id);
             var tempThis = this;
             fetch(Global.path +'/messages', {
                 body: encodedString,
@@ -209,7 +269,30 @@ export default {
 
                 
                 }).then(function () {
+                    tempThis.updatePost = '';
                     tempThis.getMssages();
+
+                });
+        },
+
+        editComment(comment) {
+            
+            console.log("Checking");
+            var encodedString = 'comment=' + encodeURIComponent(this.updateComment) + '&commentId=' + encodeURIComponent(comment._id) + '&postImage=' + encodeURIComponent(this.currentUser.profileImg) + '&userId=' + encodeURIComponent(comment.userId) + '&name=' + encodeURIComponent(this.currentUser.name);
+            var tempThis = this;
+            fetch(Global.path +'/comments', {
+                body: encodedString,
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+                }).then(function (response) {
+                    console.log("Promise Complete");
+                    var status = response.status;
+                    tempThis.getMssages();
+                
+                }).then(function () {
+                
 
                 });
         },
@@ -235,14 +318,31 @@ export default {
             });    
 
         }
-        },
-        
-        posting() {
-            this.message = true
-        },
-        postMessage() {
-            this.message = false
+    },
+
+        deleteComment(commentId) {
+            var result = confirm("Are you sure you want to delete this comment?");
+            if (result) {
+
+                var tempThis = this;
+                fetch(Global.path +'/comments/'+ commentId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                credentials: 'include'
+                
+                }).then(function (response) {
+                    console.log("Promise Complete");
+                    tempThis.getMssages();
+
+
+            });    
+
         }
+
+    },
+    
     
     },
    created() {
@@ -279,6 +379,7 @@ export default {
 
     .postBtns {
         float: right;
+        clear:left;
         padding: 0 3px;
         font-size: 10px;
         cursor: pointer;
@@ -291,21 +392,25 @@ export default {
     }
 
     .new-post-container {
-        padding: 12px;
+        padding: 1px;
         margin-top: 23px;
-        background-color: #fff;
-        box-shadow: 0px 0px 1px 0px;
         max-height: 400px;
         overflow: scroll;
 
 
     }
   
+    .new-post .mainPost {
+        background-color: rgb(255,255,255);
+        padding: 17px;
+        height: fit-content;
+    }
 
     .new-post {
         height: auto;
         min-height: 80px;
-        padding: 9px;
+        max-height: 200px;
+        overflow: scroll;
     }
 
 
@@ -318,30 +423,65 @@ export default {
         border-bottom: black solid 0.5px;
     }
 
-    .comments {
-        border-top: solid 1px gray;
-        padding: 10px;
-        background-color: rgba(177, 177, 177, 0.2)
+    .comments-container {
+        width: 100%;
+        padding: 8px;
+
     }
 
-    .comments img{
+
+    .comments {
+        padding:0; 
+        padding-top: 12px; 
+        margin-bottom: 41px;
+    }
+
+    .comment-name .postBtns {
+        float: right;
+        font-size: 7px;
+        padding: 0 3px;
+        cursor: pointer;
+    }
+
+    .comments-container .comments img{
         width: 29px;
         border-radius: 50%;
         float: left;
         margin-right: 12px;
+
     }
 
     .comment-name {
         color: hsl(211,56%,29%);
         font-size: 12px;
-        margin-left: 4px;
-        font-weight: 600;
+        width: fit-content;
+        max-width: 90%;        
+        margin-bottom: 14px;
+        background-color: rgb(255,255,255);
+        height: auto;
+        text-align: left;
+        padding: 8px;
+        border-radius: 10%;
+        float: left;
+        font-weight: 900;
+        box-shadow: 0px 0px 4px 1px lightgrey;
+
     }
 
     .comment-comment {
-        font-size: 10px;
+        font-size: 9px;
         font-family: 'Lato', sans-serif;
-        margin-left: 5%;
+        font-weight: 600;
+        color: #000;
+    }
+
+    .updateInputs {
+        overflow: visible;
+        border: rgb(255,255,255);
+        background-color: rgb(255,255,255);
+        float: left;
+        clear: left;
+        outline: none;
     }
 
     h6 {
@@ -365,15 +505,14 @@ export default {
 
 
     #feed {
-        background-color: #fff;
         height: auto;
         margin: 15px 0px;
         min-height: 104px;
         padding: 0;
         width: 100%;
         margin-top: 19px;
-        box-shadow: 0px 0px 1px 0px;
-
+        background-color: whitesmoke;
+        box-shadow: 0px 0px 1px 0px black;
     }
 
     .name {

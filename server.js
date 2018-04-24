@@ -4,6 +4,7 @@ var bodyParser      = require('body-parser');
 var userModel       = require('./models/user-model.js');
 var imageSchema     = require('./models/image-model.js');
 var messageModel    = require('./models/message-model.js');
+var commentModel    = require('./models/comment-model.js');
 var keys            = require('./config/keys.js');
 var mongoose        = require('mongoose');
 var serveStatic     = require('serve-static');
@@ -158,6 +159,14 @@ app.delete('/session', function (req,res) {
         });
     });
 
+    app.get('/comments', function(req, res) {
+        // Sending reguler response
+        commentModel.find().then(function (comments) {
+            res.status(200).json(comments);
+        
+        });
+    });
+
     app.get('/users/:email', function(req, res) {
         userModel.finda({email: req.params.email}).then((currentUser) => {
             if(currentUser){
@@ -229,7 +238,6 @@ app.post('/images', function (req, res) {
         }); 
         
         New.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(New);
         });     
 });
@@ -249,8 +257,39 @@ app.post('/messages', function (req, res) {
         }); 
         
         newMessage.save().then(function () {
-            res.set("Access-Control-Allow-Origin", "*");
             res.status(201).json(newMessage);
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Message Created");
+
+    });
+});
+
+app.post('/comments', function (req, res) {
+    console.log("Posting Comments");
+    var newDate = new date().format('MMMM Do YYYY, h:mm a');
+
+    var newComment = new commentModel({
+            name:       req.body.name,
+            postId:     req.body.postId,
+            userId:     req.body.userId,
+            comment:    req.body.comment,
+            image:      req.body.image,
+            date:       newDate
+
+        }); 
+        
+        newComment.save().then(function () {
+            res.status(201).json(newComment);
         }, function (err) {
             if (err.errors) {
                 var messages = {};
@@ -312,26 +351,10 @@ app.put('/messages', function (req, res) {
             res.status(404).json("Couldn't Find post");
             
         } else {
-            
-            if(req.body.comment) {
-                console.log("Comment arrived", req.body.comment);
-                console.log("Test", message)
-                message.comments.comment    = req.body.comment;
-                message.comments.image      = req.body.postImage;
-                message.comments.userId     = req.body.userId;
-                message.comments.name       = req.body.name;
 
-
-
-            } else {
-                console.log("message", req.body.message);
-                message.message = req.body.message;
-
-
-            }
-
-                message.save().then(function () {
-                res.status(200).json(message);
+            message.message = req.body.message;
+            message.save().then(function () {
+            res.status(200).json(message);
 
         }, function (err) {
             if (err.errors) {
@@ -350,13 +373,71 @@ app.put('/messages', function (req, res) {
         }
     });
 });
+
+
+app.put('/comments', function (req, res) {
+    console.log("Posting Users");
+ 
+    commentModel.findOne({_id: req.body.commentId}).then((comment) => {
+        if(!comment) {
+            res.status(404).json("Couldn't Find post");
+            
+        } else {
+
+            comment.comment = req.body.comment;
+            comment.save().then(function () {
+            res.status(200).json(comment);
+
+        }, function (err) {
+            if (err.errors) {
+                var messages = {};
+                for (var e in err.errors) {
+                    messages[e] = err.errors[e].message;
+                }
+                res.status(422).json(messages);
+            
+            } else {
+                res.sendStatus(500);
+            }
+            console.log("Comment Updated");
+
+        }); 
+        }
+    });
+});
   
 // DELETE____________________________________________________________
 app.delete('/messages/:postId', function(req, res) {
     console.log("DELETE METHOD BEING CALLED");
+    var tempPostId = req.params.postId;
     messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
         if(deleted){
+            console.log("deleted", deleted, "params", req.params.postId, "variable", tempPostId);
+            commentModel.findAllAndRemove({postId: req.params.postId}).then((deleted) => {
+                if(deleted){
+                    res.status(200).json(deleted);
+        
+                } else {
+                    res.status(200).json(deleted);
+        
+                }
+                
+            });
+     
+        } else {
+            res.status(404).json(deleted);
+
+        }
+        
+    });
+});
+
+app.delete('/comments/:commentId', function(req, res) {
+    console.log("DELETE METHOD BEING CALLED");
+    commentModel.findOneAndRemove({_id: req.params.commentId}).then((deleted) => {
+        if(deleted){
             res.status(200).json(deleted);
+
         } else {
             res.status(404).json(deleted);
 

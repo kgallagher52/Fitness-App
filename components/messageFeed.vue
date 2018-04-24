@@ -103,12 +103,11 @@ export default {
             }
             //  socket is fetch in websocket land
     
-            var tempThis = this;
+            var THIS = this;
             socket.onmessage = function (event) {
                 var incomingData = JSON.parse(event.data);
-                console.log(incomingData);
                 if (incomingData.action === "updatePage") {
-                        tempThis.getMssages();
+                        THIS.getMssages();
                 
                 }
             }
@@ -175,8 +174,6 @@ export default {
             },
 
         getMssages() {
-            var empty = [];
-            var empty2 = [];
             this.messages = []
             var tempThis = this.messages;
             // tempThis.push(empty)
@@ -324,9 +321,10 @@ export default {
 
         deleteComment(commentId) {
             var result = confirm("Are you sure you want to delete this comment?");
+            var THIS = this;
+
             if (result) {
 
-                var THIS = this;
                 fetch(Global.path +'/comments/'+ commentId, {
                 method: 'DELETE',
                 headers: {

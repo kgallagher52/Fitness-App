@@ -133,10 +133,8 @@ app.delete('/session', function (req,res) {
     app.get('/users/:email', function(req, res) {
         userModel.findOne({email: req.params.email}).then((currentUser) => {
             if(currentUser){
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(200).json(currentUser);
             } else {
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(404).json(currentUser);
 
             }

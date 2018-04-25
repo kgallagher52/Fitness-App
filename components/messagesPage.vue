@@ -1,20 +1,15 @@
 <template>
   <div>
-    <body style="width:100%;">
-          settings
-    </body>
+      messages
   </div>
 </template>
 
 
 <script>
-
     export default {
-
         props:[
-            'currentUser'
+        'currentUser'
         ],
-       
         data() {
             return {
 

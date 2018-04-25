@@ -32,6 +32,7 @@ var userSchema = new mongoose.Schema
      return {
         name: this.name,
         profileImg: this.profileImg,
+        email: this.email,
         id: this.id
      };
  };

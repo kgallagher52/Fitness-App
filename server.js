@@ -15,13 +15,11 @@ var Global          = require('./global.js');
 var fs              = require('fs');
 var crypto          = require('crypto');
 var WebSocket       = require('ws');
-var date            = require('moment');
 
 
 var app = express();
 
-
-// Using the middleware
+  // Using the middleware
 
 // For Local env
 app.use(express.static('public'));

@@ -4,6 +4,8 @@ import homeerror    from './components/errors/homeError.vue';
 import settings     from './components/settings.vue';
 import homeUpload   from './components/homeUpload.vue';
 import testing      from './components/testing.vue';
+import calendar      from './components/calendarPage.vue';
+
 
 
 

@@ -12,6 +12,7 @@ export default {
  
 // Shorthand for function es6 data() instead of data function()
   data() {
+    
     return {
       
     }

@@ -1,5 +1,7 @@
 <template>
     <div>
+
+    <!-- <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png" alt="Fork me on GitHub"></a> -->
         <nav class="navbar navbar-dark">
             <router-link style="text-decoration:none; color:inherit; width:50%;" to="/home"><h1 style="font-size:1.8rem;"><img style="width:70px;" src="/assets/logo.svg"></h1></router-link>
             <slot class=""></slot><h3 style="width: 8%;" class="navbar-header">{{ pageTitle }}</h3>
@@ -50,32 +52,32 @@
         <body>
             <div class="container">
                 <div class="row">
-                    <div class="col-5-l col-5-m col-12-s col-12-x">
-                        <upload v-if="pages.upload" v-bind:currentUser="currentUser"></upload>
+                    <div class="col-5-l col-5-m col-12-s col-12-x" v-if="pages.upload" >
+                        <upload v-bind:currentUser="currentUser"></upload>
                     </div>
 
                     <div v-if="pages.feed" id="messageFeed" class="col-7-l col-7-m col-12-s col-12-x">
                         <feed v-bind:currentUser="currentUser"></feed>
                     </div>
 
-                    <div class="">
-                        <calendar v-if="pages.calendar" v-bind:currentUser="currentUser"></calendar>
+                    <div class="col-12-l col-12-m col-12-s col-12-x" v-if="pages.calendar">
+                        <calendar :events="fcEvents" v-bind:currentUser="currentUser"></calendar>
                     </div>
 
-                    <div class="">
-                        <messages v-if="pages.messages" v-bind:currentUser="currentUser"></messages>
+                    <div class="" v-if="pages.messages">
+                        <messages  v-bind:currentUser="currentUser"></messages>
                     </div>
 
-                    <div class="">
-                        <workouts v-if="pages.workouts" v-bind:currentUser="currentUser"></workouts>
+                    <div class="" v-if="pages.workouts">
+                        <workouts v-bind:currentUser="currentUser"></workouts>
                     </div>
 
-                    <div class="">
-                        <clients v-if="pages.clients" v-bind:currentUser="currentUser"></clients>
+                    <div class="" v-if="pages.clients">
+                        <clients v-bind:currentUser="currentUser"></clients>
                     </div>
 
-                     <div class="">
-                        <settings v-if="pages.settings" v-bind:currentUser="currentUser"></settings>
+                     <div class="" v-if="pages.settings">
+                        <settings v-bind:currentUser="currentUser"></settings>
                     </div>
                 </div>
 
@@ -90,12 +92,10 @@ import upload       from '../components/homeUpload';
 import feed         from '../components/messageFeed';
 import workouts     from '../components/workoutsPage';
 import clients      from '../components/clientsPage';
+// import calendar     from 'vue-fullcalendar';
 import calendar     from '../components/calendarPage';
 import settings     from '../components/settings';
 import messages     from '../components/messagesPage';
-
-
-
 
 
 var collectUser = function(user, success, failure){
@@ -136,6 +136,8 @@ export default {
         dropdown2: false,
         dropdownContainer: false,
         pageTitle: 'Home',
+        fcEvents : 'demoEvents',
+    
         pages: {
             home: true,
             clients: false,
@@ -146,8 +148,7 @@ export default {
             settings: false,
             messages: false,
             
-        }
-
+        },
     }
   },
     components: {

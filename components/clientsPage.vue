@@ -2,6 +2,7 @@
   <div class="row">
     <div  v-for="client in clients" class="client-container">
             <img v-if="client.image" :src="client.image" id="post-image" alt="Cinque Terre">
+            <img v-if="!client.image" src="../assets/logo.png" id="post-image" alt="Cinque Terre">
             <span>{{ client.name }}</span>
             <span class="remove" v-on:click="deleteUser(client.name, client.id)">remove client</span>
     </div>

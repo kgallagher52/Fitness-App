@@ -1,6 +1,6 @@
 <template>
   <div>
-    <calendar 
+    <!-- <calendar 
         class="test-fc"
         :events="fcEvents" 
         locale="en"
@@ -11,7 +11,7 @@
         @moreClick="moreClick">
 
     
-    </calendar>
+    </calendar> -->
 
     <div v-for="vent in this.Events">
 
@@ -69,7 +69,7 @@
 
 
 <script>
-  import Calendar from 'vue-fullcalendar';
+  // import Calendar from 'vue-fullcalendar';
 
 
 let demoEvents = [

@@ -15,6 +15,8 @@ var Global          = require('./global.js');
 var fs              = require('fs');
 var crypto          = require('crypto');
 var WebSocket       = require('ws');
+var date            = require('moment');
+
 
 
 var app = express();
@@ -131,14 +133,20 @@ app.delete('/session', function (req,res) {
     app.get('/users/:email', function(req, res) {
         userModel.findOne({email: req.params.email}).then((currentUser) => {
             if(currentUser){
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(200).json(currentUser);
             } else {
-                res.set("Access-Control-Allow-Origin", "*");
                 res.status(404).json(currentUser);
 
             }
             
+        });
+    });
+
+    app.get('/users', function(req, res) {
+        // Sending reguler response
+        userModel.find().then(function (users) {
+            res.status(200).json(users);
+        
         });
     });
 
@@ -400,6 +408,21 @@ app.put('/comments', function (req, res) {
 });
   
 // DELETE____________________________________________________________
+
+app.delete('/user/:id', function(req, res) {
+    console.log("DELETE METHOD BEING CALLED", req.params.id);
+    userModel.findOneAndRemove({_id: req.params.id}).then((deleted) => {
+        if(deleted){
+            res.status(200).json(deleted);
+
+        } else {
+            res.status(404).json(deleted);
+
+        }
+        
+    });
+});
+
 app.delete('/messages/:postId', function(req, res) {
     console.log("DELETE METHOD BEING CALLED");
     messageModel.findOneAndRemove({_id: req.params.postId}).then((deleted) => {
@@ -428,6 +451,8 @@ app.delete('/comments/:commentId', function(req, res) {
         
     });
 });
+
+
 // Commands to make server run in express
 var server = app.listen(app.get('port'), function() {
         console.log("Server is listening...");

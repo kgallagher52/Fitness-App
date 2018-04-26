@@ -14,7 +14,7 @@
                             <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Home</router-link>
                         </li>
 
-                        <li class="nav-item" v-on:click="clients">
+                        <li class="nav-item" v-if="currentUser.admin" v-on:click="clients">
                             <router-link  style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Clients</router-link>
                         </li>
 
@@ -25,7 +25,6 @@
                         <li class="nav-item" v-on:click="messages">
                             <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Messages</router-link>
                         </li>
-
                         <li class="nav-item" v-on:click="calendar">
                             <router-link style="text-decoration:none; color:inherit;" class="nav-link" to="/home">Calendar</router-link>
                         </li>
@@ -72,7 +71,7 @@
                         <workouts v-bind:currentUser="currentUser"></workouts>
                     </div>
 
-                    <div class="" v-if="pages.clients">
+                    <div class="col-12-l col-12-m col-12-s col-12-x" v-if="pages.clients">
                         <clients v-bind:currentUser="currentUser"></clients>
                     </div>
 

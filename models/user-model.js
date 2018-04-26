@@ -33,7 +33,8 @@ var userSchema = new mongoose.Schema
         name: this.name,
         profileImg: this.profileImg,
         email: this.email,
-        id: this.id
+        id: this.id,
+        admin: this.isAdmin
      };
  };
   

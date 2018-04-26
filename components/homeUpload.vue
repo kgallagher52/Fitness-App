@@ -32,7 +32,6 @@
             }).then(function (response) {
                 console.log("Promise Complete");
                 var status = response.status;
-                location.reload();
 
                 if (status == 201) {
 
@@ -48,7 +47,7 @@
 
     export default {
         props:[
-            'currentUser', 'pageTitle'
+            'currentUser'
             ],
         data() {
             return {
@@ -65,6 +64,10 @@
             'app-home-vue': home
         },
         methods: {
+
+            getUser() {
+                console.log(this.currentUser);
+            },
             
             onFileChange(e) {
                 var files = e.target.files || e.dataTransfer.files;
@@ -109,12 +112,19 @@
         
 
 
-        created: function () {
-
-
-            },
    
+        },
+    
+
+        created() {
+            this.getUser(); 
+    
+        },
+
+        computed() {
+            return this.currentUser
         }
+
     }
 
 </script>

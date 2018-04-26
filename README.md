@@ -28,7 +28,8 @@
 | Retrieve      | GET           | /users/email         |
 | Retrieve      | GET           | /session             |
 | Retrieve      | GET           | /messages            |
-| Retrieve      | GET           | /comments            |
+| List          | GET           | /comments            |
+| List          | GET           | /users               |
 | Create        | POST          | /users               |
 | Create        | POST          | /session             |
 | Create        | POST          | /messages            |

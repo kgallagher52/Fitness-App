@@ -51,7 +51,7 @@ import Global from '../global';
 export default {
         
     props:[
-        'currentUser', 'pageTitle'
+        'currentUser'
     ],
         
     data() {
@@ -404,7 +404,7 @@ export default {
     .new-post-container {
         padding: 1px;
         margin-top: 23px;
-        max-height: 400px;
+        max-height: 550px;
         overflow: scroll;
 
 

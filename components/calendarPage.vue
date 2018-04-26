@@ -13,14 +13,14 @@
     
     </calendar> -->
 
-    <div v-for="vent in this.Events">
+    <!-- <div v-for="vent in this.Events"> -->
 
-            <div style="display:inline-flex;"><h4 >Event:</h4></div><br>
-            <div style="display:inline-flex;">Name: {{ vent.name }}</div><br>
-            <div style="display:inline-flex;"> Event: {{ vent.event }}</div><br>
-            <div style="display:inline-flex;">Date: {{ vent.day }}</div>
+            <!-- <div style="display:inline-flex;"><h4 >Event:</h4></div><br> -->
+            <!-- <div style="display:inline-flex;">Name: {{ vent.name }}</div><br> -->
+            <!-- <div style="display:inline-flex;"> Event: {{ vent.event }}</div><br> -->
+            <!-- <div style="display:inline-flex;">Date: {{ vent.day }}</div> -->
    
-    </div>
+    <!-- </div> -->
 
     <div class="modal-backdrop-M" id="modal-M" v-if="show">
       <div class="modal-mask-M">
@@ -95,63 +95,63 @@ let demoEvents = [
         ],
         data() {
             return {
-                fcEvents : demoEvents,
-                show: false,
-                newEvent: '',
-                currentDay: null,
-                currentTile: {
-                    X: '',
-                    Y: ''
-                },
-                Events: []
+                // fcEvents : demoEvents,
+                // show: false,
+                // newEvent: '',
+                // currentDay: null,
+                // currentTile: {
+                //     X: '',
+                //     Y: ''
+                // },
+                // Events: []
 
             }
         },
         components: {
-            'calendar': Calendar,
+            // 'calendar': Calendar,
         },
         methods: {
             
-        changeMonth (start, end, current) {
-            console.log('changeMonth', start, end, current)
-            },
-        eventClick (event, jsEvent, pos) {
-            console.log('eventClick', event, jsEvent, pos)
-            },
-        dayClick (day, jsEvent, currentUser) {
-            this.show = true;
-            this.currentDay = day;
-            this.currentTile.X = jsEvent.clientX;
-            this.currentTile.Y = jsEvent.clientY;
+        // changeMonth (start, end, current) {
+        //     console.log('changeMonth', start, end, current)
+        //     },
+        // eventClick (event, jsEvent, pos) {
+        //     console.log('eventClick', event, jsEvent, pos)
+        //     },
+        // dayClick (day, jsEvent, currentUser) {
+        //     this.show = true;
+        //     this.currentDay = day;
+        //     this.currentTile.X = jsEvent.clientX;
+        //     this.currentTile.Y = jsEvent.clientY;
 
-            console.log('dayClick', day, jsEvent, this.currentUser)
+        //     console.log('dayClick', day, jsEvent, this.currentUser)
             
-            },
-        moreClick (day, events, jsEvent) {
-            console.log('moreCLick', day, events, jsEvent)
-            } , 
+        //     },
+        // moreClick (day, events, jsEvent) {
+        //     console.log('moreCLick', day, events, jsEvent)
+        //     } , 
       
     
 
-        createEvent(day, currentUser) {
-            console.log("create", this.currentTile.X, this.newEvent);           
-            var newEvent = {
-                name: this.currentUser.name,
-                event: this.newEvent,
-                X: this.currentTile.X,
-                Y: this.currentTile.Y,
-                day: this.currentDay,
-            }
+        // createEvent(day, currentUser) {
+        //     console.log("create", this.currentTile.X, this.newEvent);           
+        //     var newEvent = {
+        //         name: this.currentUser.name,
+        //         event: this.newEvent,
+        //         X: this.currentTile.X,
+        //         Y: this.currentTile.Y,
+        //         day: this.currentDay,
+        //     }
 
-            // console.log(newEvent);
-            this.Events.push(newEvent);
-            this.newEvent = '';
-            this.currentTile.X = '';
-            this.currentTile.Y = '';
-            this.show = false;
+        //     // console.log(newEvent);
+        //     this.Events.push(newEvent);
+        //     this.newEvent = '';
+        //     this.currentTile.X = '';
+        //     this.currentTile.Y = '';
+        //     this.show = false;
           
             
-        },
+        // },
     },
         created: function () {
         

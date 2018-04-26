@@ -24,6 +24,8 @@
                     <div class="comments-container" v-for="allComments in comments">
                         <ul class="comments"  style="margin-bottom:10%;" v-if="singleMessage._id == comment.postId" v-for="comment in allComments">
                             <img v-if="comment.image" :src="comment.image"  alt="Cinque Terre">
+                            <img v-if="!comment.image" src="../assets/logo.png" id="post-image" alt="Cinque Terre">
+
                             <li class="comment-name">
                                 {{ comment.name }}
                                 <span class="comment-comment">{{ comment.comment }}</span></br>

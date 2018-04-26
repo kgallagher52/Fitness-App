@@ -37,7 +37,7 @@
             <div class="modal-body-M">
               <slot name="body">
                 <form style="">
-                    <div class="Form-Container-M">New Event<input v-model="newEvent"  id="event" placeholder="New Event..." class="Form-Control-M" type="text"></div>
+                    <!-- <div class="Form-Container-M">New Event<input v-model="newEvent"  id="event" placeholder="New Event..." class="Form-Control-M" type="text"></div> -->
                 </form>
               </slot>
             </div>
